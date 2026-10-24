@@ -1,6 +1,19 @@
 package id.tera.kalaclock
 
 import android.Manifest
+import id.tera.kalaclock.service.DeviceLock
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.input.pointer.PointerEventPass
+import androidx.compose.material3.Icon
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.Icons
+import androidx.compose.foundation.layout.size
+import androidx.core.content.ContextCompat
+import android.content.IntentFilter
+import android.content.Intent
+import android.content.Context
+import android.content.BroadcastReceiver
+import android.app.KeyguardManager
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
@@ -65,6 +78,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         repo = SettingsRepository(applicationContext)
+        // Stay visible over the lock screen so the clock keeps showing while the phone is locked.
+        setShowWhenLocked(true)
+        setTurnScreenOn(true)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         WindowInsetsControllerCompat(window, window.decorView).apply {
@@ -76,6 +92,40 @@ class MainActivity : ComponentActivity() {
                 App()
             }
         }
+    }
+
+    /** True while the keyguard is up. Touches are ignored then; the user unlocks with the lock icon or fingerprint. */
+    private val locked = mutableStateOf(false)
+
+    private val keyguardReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            refreshLocked()
+            // The keyguard state can lag behind the screen broadcasts.
+            window.decorView.postDelayed({ refreshLocked() }, 500)
+        }
+    }
+
+    private fun refreshLocked() {
+        locked.value = getSystemService(KeyguardManager::class.java).isKeyguardLocked
+    }
+
+    override fun onStart() {
+        super.onStart()
+        ContextCompat.registerReceiver(
+            this, keyguardReceiver,
+            IntentFilter().apply {
+                addAction(Intent.ACTION_USER_PRESENT)
+                addAction(Intent.ACTION_SCREEN_OFF)
+                addAction(Intent.ACTION_SCREEN_ON)
+            },
+            ContextCompat.RECEIVER_NOT_EXPORTED,
+        )
+        refreshLocked()
+    }
+
+    override fun onStop() {
+        unregisterReceiver(keyguardReceiver)
+        super.onStop()
     }
 
     private fun applyBrightness(value: Float) {
@@ -106,18 +156,39 @@ class MainActivity : ComponentActivity() {
         LaunchedEffect(settings.autoDim, settings.brightness, dimmed) {
             applyBrightness(if (dimmed) settings.brightness else WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE)
         }
-        LaunchedEffect(lastTouch) {
-            chrome = true
-            delay(15_000)
-            chrome = false
+        // Tapping the clock toggles the bar; while it is shown it hides itself after 15s.
+        LaunchedEffect(chrome, lastTouch) {
+            if (chrome) {
+                delay(15_000)
+                chrome = false
+            }
+        }
+
+        // Idle lock: after 5 minutes without a touch, lock the phone; the clock stays on screen.
+        var lastInteraction by remember { mutableStateOf(System.currentTimeMillis()) }
+        val isLocked by locked
+        LaunchedEffect(lastInteraction, settings.autoLock, isLocked) {
+            if (!settings.autoLock || isLocked || !DeviceLock.isAdmin(this@MainActivity)) return@LaunchedEffect
+            delay(5 * 60_000L)
+            DeviceLock.lockAndWake(this@MainActivity)
         }
 
         Box(
             Modifier
                 .fillMaxSize()
                 .background(Color.Black)
+                .pointerInput(Unit) {
+                    // Observe every touch without consuming it, to restart the idle timer.
+                    awaitPointerEventScope {
+                        while (true) {
+                            awaitPointerEvent(PointerEventPass.Initial)
+                            lastInteraction = System.currentTimeMillis()
+                        }
+                    }
+                }
                 .windowInsetsPadding(WindowInsets.systemBarsIgnoringVisibility.union(WindowInsets.displayCutout))
                 .clickable(indication = null, interactionSource = remember { androidx.compose.foundation.interaction.MutableInteractionSource() }) {
+                    chrome = !chrome
                     lastTouch = System.currentTimeMillis()
                 },
         ) {
@@ -162,6 +233,28 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 }
+            }
+            if (isLocked) {
+                // Swallow all touches while locked; only the lock icon works (asks to unlock).
+                Box(
+                    Modifier.fillMaxSize().pointerInput(Unit) {
+                        awaitPointerEventScope {
+                            while (true) {
+                                awaitPointerEvent(PointerEventPass.Initial).changes.forEach { it.consume() }
+                            }
+                        }
+                    },
+                )
+                Icon(
+                    Icons.Filled.Lock,
+                    contentDescription = "Unlock",
+                    tint = Color.Gray.copy(alpha = dim),
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(24.dp)
+                        .size(28.dp)
+                        .clickable { getSystemService(KeyguardManager::class.java).requestDismissKeyguard(this@MainActivity, null) },
+                )
             }
         }
     }

@@ -23,6 +23,7 @@ data class Settings(
     val focusMin: Int = 25,
     val breakMin: Int = 5,
     val longBreakMin: Int = 15,
+    val autoLock: Boolean = true,
 )
 
 class SettingsRepository(private val context: Context) {
@@ -38,6 +39,7 @@ class SettingsRepository(private val context: Context) {
         val focus = intPreferencesKey("focus")
         val brk = intPreferencesKey("break")
         val longBrk = intPreferencesKey("long_break")
+        val autoLock = booleanPreferencesKey("auto_lock")
     }
 
     val flow: Flow<Settings> = context.dataStore.data.map { p ->
@@ -54,6 +56,7 @@ class SettingsRepository(private val context: Context) {
             focusMin = p[K.focus] ?: d.focusMin,
             breakMin = p[K.brk] ?: d.breakMin,
             longBreakMin = p[K.longBrk] ?: d.longBreakMin,
+            autoLock = p[K.autoLock] ?: d.autoLock,
         )
     }
 
@@ -65,6 +68,7 @@ class SettingsRepository(private val context: Context) {
                     p[K.shift] ?: false, p[K.h24] ?: true, p[K.date] ?: true,
                     p[K.battery] ?: true, p[K.media] ?: true,
                     p[K.focus] ?: 25, p[K.brk] ?: 5, p[K.longBrk] ?: 15,
+                    p[K.autoLock] ?: true,
                 )
             )
             p[K.filled] = s.filledCards
@@ -78,6 +82,7 @@ class SettingsRepository(private val context: Context) {
             p[K.focus] = s.focusMin
             p[K.brk] = s.breakMin
             p[K.longBrk] = s.longBreakMin
+            p[K.autoLock] = s.autoLock
         }
     }
 }

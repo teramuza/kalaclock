@@ -34,6 +34,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import id.tera.kalaclock.data.Settings
 import id.tera.kalaclock.media.NowPlayingState
+import id.tera.kalaclock.service.DeviceLock
 
 @Composable
 fun SettingsScreen(saved: Settings, onSave: (Settings) -> Unit, onClose: () -> Unit) {
@@ -73,6 +74,11 @@ fun SettingsScreen(saved: Settings, onSave: (Settings) -> Unit, onClose: () -> U
         Stepper("Focus (min)", settings.focusMin) { v -> onChange { it.copy(focusMin = v) } }
         Stepper("Break (min)", settings.breakMin) { v -> onChange { it.copy(breakMin = v) } }
         Stepper("Long break (min)", settings.longBreakMin) { v -> onChange { it.copy(longBreakMin = v) } }
+        Toggle("Lock phone after 5 min idle (clock stays on screen)", settings.autoLock) { v -> onChange { it.copy(autoLock = v) } }
+        if (settings.autoLock && !DeviceLock.isAdmin(ctx)) {
+            Text("Locking needs device admin access. It can only lock the screen.", color = Color.LightGray)
+            Button({ ctx.startActivity(DeviceLock.requestIntent(ctx)) }) { Text("Grant device admin") }
+        }
         Toggle("Show now playing", settings.showMedia) { v -> onChange { it.copy(showMedia = v) } }
         if (settings.showMedia && !NowPlayingState.hasAccess(ctx)) {
             Text("Now playing needs Notification access to read the current track. Nothing leaves your device.", color = Color.LightGray)

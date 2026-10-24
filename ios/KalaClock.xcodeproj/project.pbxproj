@@ -12,6 +12,7 @@
 		50A6A26CB90FD7B9909359D3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3477D71CAC2EFE070CD3E964 /* SettingsView.swift */; };
 		7ED08354DEF29D98F5C8BFEE /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F3AE9DFC7DCED0874BB8F /* RootView.swift */; };
 		8718B03F022B073BCC0C5B82 /* PixelShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC12DDCB7D0CB06B2D987CC3 /* PixelShift.swift */; };
+		90301BC6A3C9CF95B24E19B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D8E45AEBF66B5F88CDA3FEF /* Assets.xcassets */; };
 		9F0B41220766FA2B5A602858 /* TimerEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D71EFBB164318EB86C945 /* TimerEngineTests.swift */; };
 		B4B1F52F835F3A724E38D468 /* BarlowSemiCondensed-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 83BEB9B3A0B7AB437BEADD4D /* BarlowSemiCondensed-ExtraBold.ttf */; };
 		CB2095D9D52164A07C6429B6 /* ModeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB31A942436DF4A41A75514D /* ModeBar.swift */; };
@@ -48,6 +49,7 @@
 		7F97701AFE8909F92C4AD4EB /* FlipCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipCard.swift; sourceTree = "<group>"; };
 		83BEB9B3A0B7AB437BEADD4D /* BarlowSemiCondensed-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BarlowSemiCondensed-ExtraBold.ttf"; sourceTree = "<group>"; };
 		87612D086C673B4B626DBD60 /* KalaClock.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = KalaClock.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D8E45AEBF66B5F88CDA3FEF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9DF6BB2A1C3E93CBB0B9A8D6 /* KalaClockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KalaClockApp.swift; sourceTree = "<group>"; };
 		A4529DC95B8F19BB577395A1 /* FlipGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipGroups.swift; sourceTree = "<group>"; };
 		A5E45D1CDDEBE6CB8474EC2E /* ClockScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockScreen.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 		EB307AE1853584ED1422E086 /* KalaClock */ = {
 			isa = PBXGroup;
 			children = (
+				8D8E45AEBF66B5F88CDA3FEF /* Assets.xcassets */,
 				FC1A1EEF12C3EE22F4AE5595 /* Info.plist */,
 				9DF6BB2A1C3E93CBB0B9A8D6 /* KalaClockApp.swift */,
 				EDD451BBF5DEF3F683CE449C /* Data */,
@@ -225,6 +228,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90301BC6A3C9CF95B24E19B7 /* Assets.xcassets in Resources */,
 				B4B1F52F835F3A724E38D468 /* BarlowSemiCondensed-ExtraBold.ttf in Resources */,
 				D692F82E70CC0825B2364474 /* BarlowSemiCondensed-SemiBold.ttf in Resources */,
 			);

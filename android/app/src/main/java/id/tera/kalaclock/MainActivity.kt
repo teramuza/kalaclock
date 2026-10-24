@@ -66,6 +66,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import id.tera.kalaclock.data.Settings
 import id.tera.kalaclock.data.SettingsRepository
 import id.tera.kalaclock.domain.Mode
+import id.tera.kalaclock.ui.NotificationIcons
 import id.tera.kalaclock.ui.PixelShift
 import id.tera.kalaclock.ui.clock.ClockScreen
 import id.tera.kalaclock.ui.settings.SettingsScreen
@@ -210,6 +211,10 @@ class MainActivity : ComponentActivity() {
                             Box(m) {
                                 if (mode == Mode.CLOCK) ClockScreen(settings, dim)
                                 else TimerScreen(mode, settings, dim)
+                                // The lock icon takes this corner while the phone is locked.
+                                if (mode == Mode.CLOCK && settings.showNotifIcons && !isLocked) {
+                                    NotificationIcons(dim, Modifier.align(Alignment.BottomEnd).padding(end = 24.dp, bottom = 24.dp))
+                                }
                             }
                         }
                         // Landscape puts the bar in a side rail so cards keep the full height.

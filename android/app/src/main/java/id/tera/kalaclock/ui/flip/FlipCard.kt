@@ -39,7 +39,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-private val CardColor = Color(0xFF0B0B0B)
+val CardColor = Color(0xFF0B0B0B)
 
 // Barlow Semi Condensed: DIN-like, flat-topped digits that suit the split-flap look.
 private val DigitFont = FontFamily(Font(R.font.barlow_semi_condensed_extrabold, FontWeight.ExtraBold))

@@ -24,6 +24,7 @@ data class Settings(
     val breakMin: Int = 5,
     val longBreakMin: Int = 15,
     val autoLock: Boolean = true,
+    val showNotifIcons: Boolean = true,
 )
 
 class SettingsRepository(private val context: Context) {
@@ -40,6 +41,7 @@ class SettingsRepository(private val context: Context) {
         val brk = intPreferencesKey("break")
         val longBrk = intPreferencesKey("long_break")
         val autoLock = booleanPreferencesKey("auto_lock")
+        val notifIcons = booleanPreferencesKey("notif_icons")
     }
 
     val flow: Flow<Settings> = context.dataStore.data.map { p ->
@@ -57,6 +59,7 @@ class SettingsRepository(private val context: Context) {
             breakMin = p[K.brk] ?: d.breakMin,
             longBreakMin = p[K.longBrk] ?: d.longBreakMin,
             autoLock = p[K.autoLock] ?: d.autoLock,
+            showNotifIcons = p[K.notifIcons] ?: d.showNotifIcons,
         )
     }
 
@@ -68,7 +71,7 @@ class SettingsRepository(private val context: Context) {
                     p[K.shift] ?: false, p[K.h24] ?: true, p[K.date] ?: true,
                     p[K.battery] ?: true, p[K.media] ?: true,
                     p[K.focus] ?: 25, p[K.brk] ?: 5, p[K.longBrk] ?: 15,
-                    p[K.autoLock] ?: true,
+                    p[K.autoLock] ?: true, p[K.notifIcons] ?: true,
                 )
             )
             p[K.filled] = s.filledCards
@@ -83,6 +86,7 @@ class SettingsRepository(private val context: Context) {
             p[K.brk] = s.breakMin
             p[K.longBrk] = s.longBreakMin
             p[K.autoLock] = s.autoLock
+            p[K.notifIcons] = s.showNotifIcons
         }
     }
 }

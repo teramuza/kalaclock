@@ -82,8 +82,9 @@ fun SettingsScreen(saved: Settings, onSave: (Settings) -> Unit, onClose: () -> U
             Button({ ctx.startActivity(DeviceLock.requestIntent(ctx)) }) { Text("Grant device admin") }
         }
         Toggle("Show now playing", settings.showMedia) { v -> onChange { it.copy(showMedia = v) } }
-        if (settings.showMedia && !NowPlayingState.hasAccess(ctx)) {
-            Text("Now playing needs Notification access to read the current track. Nothing leaves your device.", color = Color.LightGray)
+        Toggle("Show message/email app icons (max 3)", settings.showNotifIcons) { v -> onChange { it.copy(showNotifIcons = v) } }
+        if ((settings.showMedia || settings.showNotifIcons) && !NowPlayingState.hasAccess(ctx)) {
+            Text("Now playing and notification icons need Notification access. Nothing leaves your device.", color = Color.LightGray)
             Button({ ctx.startActivity(Intent(AndroidSettings.ACTION_NOTIFICATION_LISTENER_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }) {
                 Text("Grant access")
             }

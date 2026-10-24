@@ -63,13 +63,18 @@ fun TimerScreen(mode: Mode, settings: Settings, dim: Float, modifier: Modifier =
         }
     }
 
-    // UI frame ticker, independent of the service.
+    // UI ticker, independent of the service. Idle when paused; while running it wakes once per
+    // displayed second, right when the digits change, instead of polling.
     var now by remember { mutableLongStateOf(SystemClock.elapsedRealtime()) }
     LaunchedEffect(state.running) {
-        while (true) {
+        now = SystemClock.elapsedRealtime()
+        while (TimerController.state.value.running) {
+            val s = TimerController.state.value
+            val shown = s.displayMs(now)
+            val wait = if (s.mode == Mode.STOPWATCH) 1000 - shown % 1000 else (shown % 1000).let { if (it == 0L) 1000 else it + 1 }
+            delay(wait.coerceAtLeast(16))
             now = SystemClock.elapsedRealtime()
             TimerController.tick()
-            delay(200)
         }
     }
 

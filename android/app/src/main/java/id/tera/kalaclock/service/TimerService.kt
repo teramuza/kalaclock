@@ -15,15 +15,14 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import id.tera.kalaclock.MainActivity
 import id.tera.kalaclock.domain.Mode
-import id.tera.kalaclock.domain.formatDuration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 /** Keeps a running timer alive and schedules the finish alarm. Stops itself when idle. */
@@ -46,7 +45,7 @@ class TimerService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         ServiceCompat.startForeground(
-            this, NOTIF_ID, build("Starting…"), ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE
+            this, NOTIF_ID, build(System.currentTimeMillis(), false), ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE
         )
         job?.cancel()
         job = scope.launch {
@@ -56,22 +55,25 @@ class TimerService : Service() {
                     stopSelf()
                     return@collectLatest
                 }
-                if (s.mode != Mode.STOPWATCH) {
-                    scheduleAlarm(this@TimerService, SystemClock.elapsedRealtime() + s.remainingMs(SystemClock.elapsedRealtime()))
-                }
-                while (isActive) {
-                    val now = SystemClock.elapsedRealtime()
-                    getSystemService(NotificationManager::class.java)
-                        .notify(NOTIF_ID, build(formatDuration(s.displayMs(now))))
+                // The system draws the running time itself (chronometer), so nothing here wakes every second.
+                val now = SystemClock.elapsedRealtime()
+                val countDown = s.mode != Mode.STOPWATCH
+                val base = if (countDown) System.currentTimeMillis() + s.remainingMs(now)
+                else System.currentTimeMillis() - s.elapsedMs(now)
+                getSystemService(NotificationManager::class.java).notify(NOTIF_ID, build(base, countDown))
+                if (countDown) {
+                    scheduleAlarm(this@TimerService, now + s.remainingMs(now))
+                    delay(s.remainingMs(now))
                     TimerController.tick()
-                    delay(1000)
+                } else {
+                    awaitCancellation()
                 }
             }
         }
         return START_NOT_STICKY
     }
 
-    private fun build(text: String): Notification {
+    private fun build(whenMs: Long, countDown: Boolean): Notification {
         val open = PendingIntent.getActivity(
             this, 0, Intent(this, MainActivity::class.java),
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
@@ -79,7 +81,10 @@ class TimerService : Service() {
         return NotificationCompat.Builder(this, CHANNEL)
             .setSmallIcon(android.R.drawable.ic_lock_idle_alarm)
             .setContentTitle("KalaClock")
-            .setContentText(text)
+            .setShowWhen(true)
+            .setWhen(whenMs)
+            .setUsesChronometer(true)
+            .setChronometerCountDown(countDown)
             .setOngoing(true)
             .setOnlyAlertOnce(true)
             .setContentIntent(open)

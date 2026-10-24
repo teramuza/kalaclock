@@ -46,7 +46,7 @@ struct ClockScreen: View {
         let h24 = cal.component(.hour, from: date)
         let minute = cal.component(.minute, from: date)
         let hour = settings.is24h ? h24 : (h24 % 12 == 0 ? 12 : h24 % 12)
-        let dateLabel = settings.showDate ? Self.format(date, "MM/dd/yy") : nil
+        let dateLabel = settings.showDate ? Self.format(date, "d MMM") : nil
         let weekday = settings.showDate ? Self.format(date, "EEEE") : nil
         let ampm: String? = settings.is24h ? nil : (h24 < 12 ? "AM" : "PM")
         return [

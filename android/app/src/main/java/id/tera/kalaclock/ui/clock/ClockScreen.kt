@@ -77,7 +77,7 @@ fun ClockScreen(settings: Settings, dim: Float, modifier: Modifier = Modifier) {
     }
     val fg = Color(0xFFB0B0B0).copy(alpha = dim)
     val hour = if (settings.is24h) now.hour else (now.hour % 12).let { if (it == 0) 12 else it }
-    val date = if (settings.showDate) now.format(DateTimeFormatter.ofPattern("MM/dd/yy", Locale.getDefault())) else null
+    val date = if (settings.showDate) now.format(DateTimeFormatter.ofPattern("d MMM", Locale.getDefault())) else null
     val weekday = if (settings.showDate) now.format(DateTimeFormatter.ofPattern("EEEE", Locale.getDefault())) else null
     val ampm = if (settings.is24h) null else if (now.hour < 12) "AM" else "PM"
     val groups = listOf(

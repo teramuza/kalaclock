@@ -31,8 +31,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import id.tera.kalaclock.data.Settings
+import id.tera.kalaclock.AppInfoConfig
 import id.tera.kalaclock.media.NowPlayingState
 import id.tera.kalaclock.service.DeviceLock
 
@@ -87,6 +89,7 @@ fun SettingsScreen(saved: Settings, onSave: (Settings) -> Unit, onClose: () -> U
             }
         }
         Button({ onSave(settings); onClose() }, enabled = dirty) { Text("Save") }
+        AboutSection()
     }
 }
 
@@ -106,5 +109,33 @@ private fun Stepper(label: String, value: Int, onChange: (Int) -> Unit) {
             OutlinedButton({ onChange((value - 1).coerceAtLeast(1)) }) { Text("−", color = Color.White) }
             OutlinedButton({ onChange((value + 1).coerceAtMost(180)) }) { Text("+", color = Color.White) }
         }
+    }
+}
+
+@Composable
+private fun AboutSection() {
+    val ctx = LocalContext.current
+    val uriHandler = LocalUriHandler.current
+    val version = remember {
+        runCatching { ctx.packageManager.getPackageInfo(ctx.packageName, 0).versionName }.getOrNull().orEmpty()
+    }
+    Column(Modifier.fillMaxWidth().padding(top = 16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Text("About", color = Color.White, style = androidx.compose.material3.MaterialTheme.typography.titleMedium)
+        Text("${AppInfoConfig.APP_NAME} $version".trim(), color = Color.White)
+        Text(AppInfoConfig.APP_DESCRIPTION, color = Color.Gray)
+        Text(
+            "${AppInfoConfig.DEVELOPER_ROLE}: ${AppInfoConfig.DEVELOPER_NAME}",
+            color = Color.White,
+            modifier = Modifier.padding(top = 8.dp),
+        )
+        listOf(
+            "GitHub" to AppInfoConfig.GITHUB_URL,
+            "Source code" to AppInfoConfig.SOURCE_URL,
+            "Website" to AppInfoConfig.WEBSITE_URL,
+            "Contact" to AppInfoConfig.CONTACT_EMAIL.takeIf { it.isNotBlank() }?.let { "mailto:$it" }.orEmpty(),
+        ).filter { it.second.isNotBlank() }.forEach { (label, url) ->
+            TextButton({ runCatching { uriHandler.openUri(url) } }) { Text(label) }
+        }
+        Text(AppInfoConfig.COPYRIGHT, color = Color.Gray, modifier = Modifier.padding(top = 8.dp))
     }
 }

@@ -48,6 +48,7 @@ struct SettingsView: View {
                 Button("Save") { onSave(draft); onClose() }
                     .buttonStyle(.borderedProminent)
                     .disabled(!dirty)
+                about
             }
             .padding(16)
         }
@@ -59,6 +60,28 @@ struct SettingsView: View {
         } message: {
             Text("You have unsaved changes.")
         }
+    }
+
+    private var about: some View {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+        let links: [(String, String)] = [
+            ("GitHub", AppInfoConfig.githubURL),
+            ("Source code", AppInfoConfig.sourceURL),
+            ("Website", AppInfoConfig.websiteURL),
+            ("Contact", AppInfoConfig.contactEmail.isEmpty ? "" : "mailto:\(AppInfoConfig.contactEmail)"),
+        ].filter { !$0.1.isEmpty }
+        return VStack(alignment: .leading, spacing: 4) {
+            Text("About").font(.headline).foregroundColor(.white)
+            Text("\(AppInfoConfig.appName) \(version)").foregroundColor(.white)
+            Text(AppInfoConfig.appDescription).foregroundColor(.gray)
+            Text("\(AppInfoConfig.developerRole): \(AppInfoConfig.developerName)")
+                .foregroundColor(.white).padding(.top, 8)
+            ForEach(links, id: \.0) { label, url in
+                if let u = URL(string: url) { Link(label, destination: u).padding(.vertical, 4) }
+            }
+            Text(AppInfoConfig.copyright).foregroundColor(.gray).padding(.top, 8)
+        }
+        .padding(.top, 16)
     }
 
     private func requestClose() {

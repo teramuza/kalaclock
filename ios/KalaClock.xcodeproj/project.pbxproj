@@ -19,6 +19,7 @@
 		CC8BFF53939A81BD15F19A51 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A86C0F24283FD751763D12 /* Settings.swift */; };
 		D692F82E70CC0825B2364474 /* BarlowSemiCondensed-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 01375AC4D3AB4DE74E6D21D2 /* BarlowSemiCondensed-SemiBold.ttf */; };
 		E01376F4C0CF6AFBEF1870CD /* ClockScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E45D1CDDEBE6CB8474EC2E /* ClockScreen.swift */; };
+		E063874FB0F12303DE0AA0B0 /* AppInfoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8EBAA1DA1E24623CB60B71 /* AppInfoConfig.swift */; };
 		E8DAAD771483BC6B5BBB5D79 /* BatteryIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9235AA7F70884FFCEBADFB /* BatteryIndicator.swift */; };
 		EEB35BAF4D8CA7F94AE89212 /* TimerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1018C867593A6131E62A39B /* TimerController.swift */; };
 		F53797235640D9A94B39902D /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFF179713C9DDE75C7A7E4D /* TimerEngine.swift */; };
@@ -56,6 +57,7 @@
 		AB31A942436DF4A41A75514D /* ModeBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeBar.swift; sourceTree = "<group>"; };
 		ACFF179713C9DDE75C7A7E4D /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngine.swift; sourceTree = "<group>"; };
 		C1018C867593A6131E62A39B /* TimerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerController.swift; sourceTree = "<group>"; };
+		DE8EBAA1DA1E24623CB60B71 /* AppInfoConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoConfig.swift; sourceTree = "<group>"; };
 		E8995F38452E8165E263B44D /* KalaClockTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = KalaClockTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC12DDCB7D0CB06B2D987CC3 /* PixelShift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelShift.swift; sourceTree = "<group>"; };
 		FC1A1EEF12C3EE22F4AE5595 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 		EB307AE1853584ED1422E086 /* KalaClock */ = {
 			isa = PBXGroup;
 			children = (
+				DE8EBAA1DA1E24623CB60B71 /* AppInfoConfig.swift */,
 				8D8E45AEBF66B5F88CDA3FEF /* Assets.xcassets */,
 				FC1A1EEF12C3EE22F4AE5595 /* Info.plist */,
 				9DF6BB2A1C3E93CBB0B9A8D6 /* KalaClockApp.swift */,
@@ -249,6 +252,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E063874FB0F12303DE0AA0B0 /* AppInfoConfig.swift in Sources */,
 				E8DAAD771483BC6B5BBB5D79 /* BatteryIndicator.swift in Sources */,
 				E01376F4C0CF6AFBEF1870CD /* ClockScreen.swift in Sources */,
 				FDEBB439C469F4527167707E /* FlipCard.swift in Sources */,

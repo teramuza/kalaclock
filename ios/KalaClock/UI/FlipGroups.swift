@@ -15,6 +15,7 @@ struct FlipGroups: View {
     let groups: [FlipGroup]
     let filled: Bool
     let color: Color
+    var dim: Double = 1
 
     var body: some View {
         GeometryReader { geo in
@@ -38,6 +39,9 @@ struct FlipGroups: View {
                     VStack(spacing: gap) { cards(cardW, cardH) }
                 }
             }
+            // Dim the cards as one group so the flip layers never stack translucently mid-flip.
+            .compositingGroup()
+            .opacity(dim)
             .frame(width: geo.size.width, height: geo.size.height)
         }
     }

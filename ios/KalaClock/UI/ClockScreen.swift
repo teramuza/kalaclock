@@ -5,6 +5,7 @@ struct ClockScreen: View {
     let dim: Double
     @ObservedObject var nowPlaying: NowPlayingMonitor
 
+    private let digitGray = Color(red: 0xB0 / 255, green: 0xB0 / 255, blue: 0xB0 / 255)
     private var fg: Color { Color(red: 0xB0 / 255, green: 0xB0 / 255, blue: 0xB0 / 255).opacity(dim) }
 
     var body: some View {
@@ -14,7 +15,7 @@ struct ClockScreen: View {
                 if geo.size.width > geo.size.height {
                     // Landscape: cards stay centered; battery and now-playing float in the corners.
                     ZStack {
-                        FlipGroups(groups: groups, filled: settings.filledCards, color: fg)
+                        FlipGroups(groups: groups, filled: settings.filledCards, color: digitGray, dim: dim)
                         if settings.showBattery {
                             BatteryIndicator(fg: fg, dim: dim)
                                 .padding(.horizontal, 32).padding(.vertical, 16)
@@ -32,7 +33,7 @@ struct ClockScreen: View {
                             HStack { Spacer(); BatteryIndicator(fg: fg, dim: dim) }
                                 .padding(.horizontal, 24).padding(.vertical, 8)
                         }
-                        FlipGroups(groups: groups, filled: settings.filledCards, color: fg)
+                        FlipGroups(groups: groups, filled: settings.filledCards, color: digitGray, dim: dim)
                         if settings.showMedia { NowPlayingBar(monitor: nowPlaying, fg: fg) }
                     }
                 }

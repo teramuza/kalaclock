@@ -9,6 +9,7 @@ struct TimerScreen: View {
     @State private var now = monotonicNowMs()
     private let frame = Timer.publish(every: 0.2, on: .main, in: .common).autoconnect()
 
+    private let digitGray = Color(red: 0xB0 / 255, green: 0xB0 / 255, blue: 0xB0 / 255)
     private var fg: Color { Color(red: 0xB0 / 255, green: 0xB0 / 255, blue: 0xB0 / 255).opacity(dim) }
     private var state: TimerState { timer.state }
 
@@ -24,13 +25,13 @@ struct TimerScreen: View {
                             buttons(vertical: true)
                         }
                         .frame(width: 132).padding(.leading, 16)
-                        FlipGroups(groups: groups, filled: settings.filledCards, color: fg)
+                        FlipGroups(groups: groups, filled: settings.filledCards, color: digitGray, dim: dim)
                     }
                 } else {
                     VStack(spacing: 0) {
                         phaseLabel
                         adjusters(vertical: false)
-                        FlipGroups(groups: groups, filled: settings.filledCards, color: fg)
+                        FlipGroups(groups: groups, filled: settings.filledCards, color: digitGray, dim: dim)
                         buttons(vertical: false).padding(16)
                     }
                 }

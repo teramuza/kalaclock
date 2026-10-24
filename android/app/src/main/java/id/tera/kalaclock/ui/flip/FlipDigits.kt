@@ -14,6 +14,9 @@ import androidx.compose.ui.unit.min
 /** One flip card holding [text] (e.g. "02"), with optional labels drawn inside the card. */
 data class FlipGroup(val text: String, val topLabel: String? = null, val bottomLabel: String? = null)
 
+/** Digit color before dimming; dimming is applied to the whole card so flip layers never stack translucently. */
+val DigitGray = Color(0xFFB0B0B0)
+
 private const val CARD_ASPECT = 0.89f // width / height
 
 /**
@@ -26,6 +29,7 @@ fun FlipGroups(
     filled: Boolean,
     color: Color,
     modifier: Modifier = Modifier,
+    dim: Float = 1f,
 ) {
     BoxWithConstraints(modifier, contentAlignment = Alignment.Center) {
         val landscape = maxWidth > maxHeight
@@ -44,7 +48,7 @@ fun FlipGroups(
         val cardH = cardW / CARD_ASPECT
 
         val card: @Composable (FlipGroup) -> Unit = { g ->
-            FlipCard(g.text, cardW, cardH, filled, color, g.topLabel, g.bottomLabel)
+            FlipCard(g.text, cardW, cardH, filled, color, g.topLabel, g.bottomLabel, alpha = dim)
         }
         if (landscape) {
             Row(horizontalArrangement = Arrangement.spacedBy(gap), verticalAlignment = Alignment.CenterVertically) {

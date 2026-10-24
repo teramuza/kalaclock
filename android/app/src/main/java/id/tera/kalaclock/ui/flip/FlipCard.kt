@@ -26,6 +26,7 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ClipOp
 import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
@@ -90,6 +91,7 @@ fun FlipCard(
     color: Color = Color.White,
     topLabel: String? = null,
     bottomLabel: String? = null,
+    alpha: Float = 1f,
     modifier: Modifier = Modifier,
 ) {
     var shown by remember { mutableStateOf(text) }
@@ -118,6 +120,12 @@ fun FlipCard(
     Box(
         modifier
             .size(width, height)
+            // Dim the finished card as one offscreen layer: the flap overlaps the static halves,
+            // and per-text alpha there would add up and flash brighter mid-flip.
+            .graphicsLayer {
+                this.alpha = alpha
+                compositingStrategy = CompositingStrategy.Offscreen
+            }
             .clip(RoundedCornerShape(radius)),
     ) {
         // static top: new value

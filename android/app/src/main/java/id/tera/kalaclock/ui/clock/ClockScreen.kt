@@ -48,6 +48,7 @@ import androidx.compose.ui.unit.sp
 import id.tera.kalaclock.data.Settings
 import id.tera.kalaclock.media.NowPlayingState
 import id.tera.kalaclock.ui.flip.FlipGroup
+import id.tera.kalaclock.ui.flip.DigitGray
 import id.tera.kalaclock.ui.flip.FlipGroups
 import kotlinx.coroutines.delay
 import java.time.LocalDateTime
@@ -76,7 +77,7 @@ fun ClockScreen(settings: Settings, dim: Float, modifier: Modifier = Modifier) {
     BoxWithConstraints(modifier.fillMaxSize()) {
         if (maxWidth > maxHeight) {
             // Landscape: cards stay centered; battery and now-playing float in the corners.
-            FlipGroups(groups, settings.filledCards, fg, Modifier.fillMaxSize())
+            FlipGroups(groups, settings.filledCards, DigitGray, Modifier.fillMaxSize(), dim)
             if (settings.showBattery) {
                 Row(Modifier.align(Alignment.TopEnd).padding(horizontal = 32.dp, vertical = 16.dp), verticalAlignment = Alignment.CenterVertically) {
                     BatteryIndicator(fg)
@@ -97,7 +98,7 @@ fun ClockScreen(settings: Settings, dim: Float, modifier: Modifier = Modifier) {
                     ) { BatteryIndicator(fg) }
                 }
                 Box(Modifier.weight(1f).fillMaxWidth()) {
-                    FlipGroups(groups, settings.filledCards, fg, Modifier.fillMaxSize())
+                    FlipGroups(groups, settings.filledCards, DigitGray, Modifier.fillMaxSize(), dim)
                 }
                 if (settings.showMedia) NowPlayingBar(fg)
             }

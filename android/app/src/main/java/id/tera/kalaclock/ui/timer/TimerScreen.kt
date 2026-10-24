@@ -36,6 +36,7 @@ import id.tera.kalaclock.domain.TimerEngine
 import id.tera.kalaclock.service.TimerController
 import id.tera.kalaclock.service.TimerService
 import id.tera.kalaclock.ui.flip.FlipGroup
+import id.tera.kalaclock.ui.flip.DigitGray
 import id.tera.kalaclock.ui.flip.FlipGroups
 import kotlinx.coroutines.delay
 
@@ -132,14 +133,14 @@ fun TimerScreen(mode: Mode, settings: Settings, dim: Float, modifier: Modifier =
                     adjusters(true)
                     buttons(true)
                 }
-                FlipGroups(groups, settings.filledCards, fg, Modifier.weight(1f).fillMaxHeight())
+                FlipGroups(groups, settings.filledCards, DigitGray, Modifier.weight(1f).fillMaxHeight(), dim)
             }
         } else {
             Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
                 phaseLabel()
                 adjusters(false)
                 Box(Modifier.weight(1f).fillMaxWidth()) {
-                    FlipGroups(groups, settings.filledCards, fg, Modifier.fillMaxSize())
+                    FlipGroups(groups, settings.filledCards, DigitGray, Modifier.fillMaxSize(), dim)
                 }
                 buttons(false)
             }

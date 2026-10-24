@@ -34,6 +34,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.Lifecycle
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
@@ -62,10 +65,14 @@ import java.util.Locale
 @Composable
 fun ClockScreen(settings: Settings, dim: Float, modifier: Modifier = Modifier) {
     var now by remember { mutableStateOf(LocalDateTime.now()) }
-    LaunchedEffect(Unit) {
+    // The face has no seconds, so wake once per minute. Delays do not count time spent asleep,
+    // so restart the loop (and re-read the time) every time the app comes back to the foreground.
+    var resumes by remember { mutableIntStateOf(0) }
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { resumes++ }
+    LaunchedEffect(resumes) {
         while (true) {
             now = LocalDateTime.now()
-            delay(1000L - System.currentTimeMillis() % 1000L)
+            delay(60_000L - System.currentTimeMillis() % 60_000L)
         }
     }
     val fg = Color(0xFFB0B0B0).copy(alpha = dim)

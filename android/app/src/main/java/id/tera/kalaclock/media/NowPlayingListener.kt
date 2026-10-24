@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-data class NowPlaying(val title: String, val artist: String, val art: Bitmap?)
+data class NowPlaying(val title: String, val artist: String, val art: Bitmap?, val packageName: String?)
 
 object NowPlayingState {
     private val _value = MutableStateFlow<NowPlaying?>(null)
@@ -117,12 +117,12 @@ class NowPlayingListener : NotificationListenerService() {
             ?: m.getBitmap(MediaMetadata.METADATA_KEY_DISPLAY_ICON)
         val key = "$title|$artist"
         if (art != null) {
-            NowPlayingState.set(NowPlaying(title, artist, art))
+            NowPlayingState.set(NowPlaying(title, artist, art, c.packageName))
             return
         }
         // Many players only expose an artwork URI; show text now, then fill in the art.
         val cached = lastArt?.takeIf { it.first == key }?.second
-        NowPlayingState.set(NowPlaying(title, artist, cached))
+        NowPlayingState.set(NowPlaying(title, artist, cached, c.packageName))
         if (cached != null) return
         val uri = listOf(
             MediaMetadata.METADATA_KEY_ALBUM_ART_URI,
@@ -133,7 +133,7 @@ class NowPlayingListener : NotificationListenerService() {
         artJob = scope.launch {
             val bmp = withContext(Dispatchers.IO) { loadArt(uri) } ?: return@launch
             lastArt = key to bmp
-            NowPlayingState.set(NowPlaying(title, artist, bmp))
+            NowPlayingState.set(NowPlaying(title, artist, bmp, c.packageName))
         }
     }
 

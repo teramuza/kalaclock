@@ -9,6 +9,10 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
 import androidx.compose.foundation.Image
+import id.tera.kalaclock.ui.flip.CardColor
+import androidx.core.graphics.drawable.toBitmap
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -178,9 +182,37 @@ private fun NowPlayingBar(fg: Color, compact: Boolean = false) {
         horizontalArrangement = if (compact) Arrangement.Start else Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        n.art?.let {
-            val gray = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(0f) })
-            Image(it.asImageBitmap(), null, Modifier.size(if (compact) 40.dp else 56.dp).clip(RoundedCornerShape(8.dp)), colorFilter = gray, alpha = fg.alpha * 0.8f)
+        val artSize = if (compact) 40.dp else 56.dp
+        val ctx = LocalContext.current
+        val sourceIcon = remember(n.packageName) {
+            n.packageName?.let { pkg ->
+                runCatching { ctx.packageManager.getApplicationIcon(pkg).toBitmap().asImageBitmap() }.getOrNull()
+            }
+        }
+        if (n.art != null || sourceIcon != null) {
+            Box(Modifier.size(artSize)) {
+                val gray = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(0f) })
+                if (n.art != null) {
+                    Image(n.art.asImageBitmap(), null, Modifier.fillMaxSize().clip(RoundedCornerShape(8.dp)), colorFilter = gray, alpha = fg.alpha * 0.8f)
+                } else {
+                    Box(Modifier.fillMaxSize().background(CardColor, RoundedCornerShape(8.dp)))
+                }
+                // Small logo of the player the track comes from, on the artwork's bottom-right corner.
+                if (sourceIcon != null) {
+                    val badge = if (compact) 16.dp else 20.dp
+                    Image(
+                        sourceIcon, null,
+                        Modifier
+                            .align(Alignment.BottomEnd)
+                            .offset(4.dp, 4.dp)
+                            .size(badge)
+                            .background(CardColor, RoundedCornerShape(5.dp))
+                            .padding(1.5.dp)
+                            .clip(RoundedCornerShape(4.dp)),
+                        alpha = fg.alpha,
+                    )
+                }
+            }
         }
         Column(Modifier.padding(start = if (compact) 8.dp else 12.dp)) {
             Text(n.title, color = fg, fontSize = if (compact) 13.sp else 16.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)

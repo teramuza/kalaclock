@@ -37,6 +37,7 @@ import id.tera.kalaclock.data.Settings
 import id.tera.kalaclock.AppInfoConfig
 import id.tera.kalaclock.media.NowPlayingState
 import id.tera.kalaclock.service.DeviceLock
+import id.tera.kalaclock.service.FocusMode
 
 @Composable
 fun SettingsScreen(saved: Settings, onSave: (Settings) -> Unit, onClose: () -> Unit) {
@@ -80,6 +81,11 @@ fun SettingsScreen(saved: Settings, onSave: (Settings) -> Unit, onClose: () -> U
         if (settings.autoLock && !DeviceLock.isAdmin(ctx)) {
             Text("Locking needs device admin access. It can only lock the screen.", color = Color.LightGray)
             Button({ ctx.startActivity(DeviceLock.requestIntent(ctx)) }) { Text("Grant device admin") }
+        }
+        Toggle("Do Not Disturb during Pomodoro focus", settings.pomodoroDnd) { v -> onChange { it.copy(pomodoroDnd = v) } }
+        if (settings.pomodoroDnd && !FocusMode.hasAccess(ctx)) {
+            Text("Needs Do Not Disturb access. Alarms and priority contacts still come through.", color = Color.LightGray)
+            Button({ ctx.startActivity(FocusMode.accessIntent()) }) { Text("Grant Do Not Disturb access") }
         }
         Toggle("Show now playing", settings.showMedia) { v -> onChange { it.copy(showMedia = v) } }
         Toggle("Show message/email app icons (max 3)", settings.showNotifIcons) { v -> onChange { it.copy(showNotifIcons = v) } }

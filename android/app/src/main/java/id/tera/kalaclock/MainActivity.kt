@@ -2,6 +2,8 @@ package id.tera.kalaclock
 
 import android.Manifest
 import id.tera.kalaclock.service.DeviceLock
+import id.tera.kalaclock.service.FocusMode
+import id.tera.kalaclock.service.TimerController
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.material3.Icon
@@ -80,6 +82,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         repo = SettingsRepository(applicationContext)
+        // Undo a Do Not Disturb left on by a focus session whose process was killed.
+        FocusMode.sync(this, TimerController.state.value, enabled = false)
         // Stay visible over the lock screen so the clock keeps showing while the phone is locked.
         setShowWhenLocked(true)
         setTurnScreenOn(true)

@@ -14,6 +14,7 @@ import android.os.SystemClock
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import id.tera.kalaclock.MainActivity
+import id.tera.kalaclock.data.SettingsRepository
 import id.tera.kalaclock.domain.Mode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,12 +24,14 @@ import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 /** Keeps a running timer alive and schedules the finish alarm. Stops itself when idle. */
 class TimerService : Service() {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     private var job: Job? = null
+    private val settingsRepo by lazy { SettingsRepository(applicationContext) }
 
     override fun onBind(intent: Intent?): IBinder? = null
 
@@ -50,6 +53,7 @@ class TimerService : Service() {
         job?.cancel()
         job = scope.launch {
             TimerController.state.collectLatest { s ->
+                FocusMode.sync(this@TimerService, s, settingsRepo.flow.first().pomodoroDnd)
                 if (!s.running || s.mode == Mode.CLOCK) {
                     cancelAlarm(this@TimerService)
                     stopSelf()

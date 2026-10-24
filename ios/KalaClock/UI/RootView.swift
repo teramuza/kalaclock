@@ -27,10 +27,13 @@ struct RootView: View {
             }
         }
         .contentShape(Rectangle())
-        .onTapGesture { touch() }
-        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in touch() })
-        .task(id: lastTouch) {
-            chrome = true
+        .onTapGesture {
+            // Tapping the clock toggles the bar; while it is shown it hides itself after 15s.
+            chrome.toggle()
+            touch()
+        }
+        .task(id: "\(lastTouch.timeIntervalSince1970)-\(chrome)") {
+            guard chrome else { return }
             try? await Task.sleep(nanoseconds: 15_000_000_000)
             if !Task.isCancelled { chrome = false }
         }

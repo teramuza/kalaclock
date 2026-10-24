@@ -2,9 +2,9 @@ import SwiftUI
 
 private let cardColor = Color(red: 11 / 255, green: 11 / 255, blue: 11 / 255)
 
-// Roboto Condensed: a narrow neo-grotesque with flat-cut terminals, close to the classic flip clock look.
-private func digitFont(_ size: CGFloat) -> Font { .custom("RobotoCondensed-Bold", fixedSize: size) }
-func labelFont(_ size: CGFloat) -> Font { .custom("RobotoCondensed-SemiBold", fixedSize: size) }
+// Anton for the digits: a very tall, narrow grotesque. Archivo Condensed for the small labels.
+private func digitFont(_ size: CGFloat) -> Font { .custom("Anton-Regular", fixedSize: size) }
+func labelFont(_ size: CGFloat) -> Font { .custom("ArchivoRoman-CondensedSemiBold", fixedSize: size) }
 
 /// One half of a card showing `text`; `top` picks which half is visible.
 private struct Half: View {
@@ -19,16 +19,16 @@ private struct Half: View {
     var body: some View {
         ZStack(alignment: top ? .top : .bottom) {
             bg
-            // Roboto Condensed's line box is 1.17em with the baseline 0.93em down and digits 0.71em tall,
-            // so the glyphs sit 0.014em above the box center; nudge them down so the center line
-            // splits the digits evenly.
+            // Anton's line box is 1.5em with the baseline 1.18em down and digits 0.86em tall, so the
+            // glyphs sit 0.006em above the box center; nudge them down so the center line splits the
+            // digits evenly.
             Text(text)
                 .font(digitFont(fontSize))
                 .foregroundColor(color)
                 .lineLimit(1)
                 .fixedSize()
                 .frame(width: width, height: height)
-                .offset(y: fontSize * 0.014)
+                .offset(y: fontSize * 0.006)
         }
         .frame(width: width, height: height / 2, alignment: top ? .top : .bottom)
         .clipped()
@@ -113,7 +113,7 @@ struct FlipCard: View {
     var topLabel: String?
     var bottomLabel: String?
 
-    private var fontSize: CGFloat { min(height * 1.08, width * 0.86 / (CGFloat(max(text.count, 1)) * 0.505)) }
+    private var fontSize: CGFloat { min(height * 0.65, width * 0.78 / (CGFloat(max(text.count, 1)) * 0.494)) }
     private var bg: Color { filled ? cardColor : .black } // opaque, so a flap hides what is behind it
 
     var body: some View {
@@ -134,7 +134,7 @@ struct FlipCard: View {
                     .font(labelFont(height * 0.065))
                     .foregroundColor(color)
                     .frame(width: width, height: height, alignment: .top)
-                    .padding(.top, height * 0.04)
+                    .padding(.top, height * 0.05)
                     .frame(width: width, height: height, alignment: .top)
             }
             if let bottomLabel {

@@ -29,8 +29,8 @@ targets:
         UILaunchScreen:
           UIColorName: ""
         UIAppFonts:
-          - RobotoCondensed-Bold.ttf
-          - RobotoCondensed-SemiBold.ttf
+          - Anton-Regular.ttf
+          - ArchivoCondensed-SemiBold.ttf
         UIStatusBarHidden: true
         UIViewControllerBasedStatusBarAppearance: false
         UIUserInterfaceStyle: Dark

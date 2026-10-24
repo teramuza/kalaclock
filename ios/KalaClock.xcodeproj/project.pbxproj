@@ -10,8 +10,7 @@
 		09D32E75CB7743ABE7F3009F /* KalaClockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF6BB2A1C3E93CBB0B9A8D6 /* KalaClockApp.swift */; };
 		2DEF0FDCE75EBA57D74A2DD4 /* FlipGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4529DC95B8F19BB577395A1 /* FlipGroups.swift */; };
 		50A6A26CB90FD7B9909359D3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3477D71CAC2EFE070CD3E964 /* SettingsView.swift */; };
-		62620EAB7FEAF92F3D242AF4 /* RobotoCondensed-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7D34C6836AEFEC1466E38A3 /* RobotoCondensed-Bold.ttf */; };
-		76723A8E557F88D8B1E3943F /* RobotoCondensed-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 33D650D076B05AC30579A336 /* RobotoCondensed-SemiBold.ttf */; };
+		6DD5A44EA037230415AA74A1 /* Anton-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7F96EE2D1FFCDE5CC9BD904 /* Anton-Regular.ttf */; };
 		7ED08354DEF29D98F5C8BFEE /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F3AE9DFC7DCED0874BB8F /* RootView.swift */; };
 		8718B03F022B073BCC0C5B82 /* PixelShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC12DDCB7D0CB06B2D987CC3 /* PixelShift.swift */; };
 		90301BC6A3C9CF95B24E19B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D8E45AEBF66B5F88CDA3FEF /* Assets.xcassets */; };
@@ -20,6 +19,7 @@
 		CC8BFF53939A81BD15F19A51 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A86C0F24283FD751763D12 /* Settings.swift */; };
 		E01376F4C0CF6AFBEF1870CD /* ClockScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E45D1CDDEBE6CB8474EC2E /* ClockScreen.swift */; };
 		E063874FB0F12303DE0AA0B0 /* AppInfoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8EBAA1DA1E24623CB60B71 /* AppInfoConfig.swift */; };
+		E80EF887FAE0DEFFCE8815F4 /* ArchivoCondensed-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31740E85E9842B988DDA8E9C /* ArchivoCondensed-SemiBold.ttf */; };
 		E8DAAD771483BC6B5BBB5D79 /* BatteryIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9235AA7F70884FFCEBADFB /* BatteryIndicator.swift */; };
 		EEB35BAF4D8CA7F94AE89212 /* TimerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1018C867593A6131E62A39B /* TimerController.swift */; };
 		F53797235640D9A94B39902D /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFF179713C9DDE75C7A7E4D /* TimerEngine.swift */; };
@@ -41,7 +41,7 @@
 /* Begin PBXFileReference section */
 		1A9235AA7F70884FFCEBADFB /* BatteryIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryIndicator.swift; sourceTree = "<group>"; };
 		22A86C0F24283FD751763D12 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		33D650D076B05AC30579A336 /* RobotoCondensed-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-SemiBold.ttf"; sourceTree = "<group>"; };
+		31740E85E9842B988DDA8E9C /* ArchivoCondensed-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ArchivoCondensed-SemiBold.ttf"; sourceTree = "<group>"; };
 		3477D71CAC2EFE070CD3E964 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3F7D71EFBB164318EB86C945 /* TimerEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngineTests.swift; sourceTree = "<group>"; };
 		4E4F3AE9DFC7DCED0874BB8F /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -53,10 +53,10 @@
 		9DF6BB2A1C3E93CBB0B9A8D6 /* KalaClockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KalaClockApp.swift; sourceTree = "<group>"; };
 		A4529DC95B8F19BB577395A1 /* FlipGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipGroups.swift; sourceTree = "<group>"; };
 		A5E45D1CDDEBE6CB8474EC2E /* ClockScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockScreen.swift; sourceTree = "<group>"; };
+		A7F96EE2D1FFCDE5CC9BD904 /* Anton-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Anton-Regular.ttf"; sourceTree = "<group>"; };
 		AB31A942436DF4A41A75514D /* ModeBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeBar.swift; sourceTree = "<group>"; };
 		ACFF179713C9DDE75C7A7E4D /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngine.swift; sourceTree = "<group>"; };
 		C1018C867593A6131E62A39B /* TimerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerController.swift; sourceTree = "<group>"; };
-		C7D34C6836AEFEC1466E38A3 /* RobotoCondensed-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-Bold.ttf"; sourceTree = "<group>"; };
 		DE8EBAA1DA1E24623CB60B71 /* AppInfoConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoConfig.swift; sourceTree = "<group>"; };
 		E8995F38452E8165E263B44D /* KalaClockTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = KalaClockTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC12DDCB7D0CB06B2D987CC3 /* PixelShift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelShift.swift; sourceTree = "<group>"; };
@@ -93,8 +93,8 @@
 		71E9125ED1ED4A799D7F963A /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				C7D34C6836AEFEC1466E38A3 /* RobotoCondensed-Bold.ttf */,
-				33D650D076B05AC30579A336 /* RobotoCondensed-SemiBold.ttf */,
+				A7F96EE2D1FFCDE5CC9BD904 /* Anton-Regular.ttf */,
+				31740E85E9842B988DDA8E9C /* ArchivoCondensed-SemiBold.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -231,9 +231,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DD5A44EA037230415AA74A1 /* Anton-Regular.ttf in Resources */,
+				E80EF887FAE0DEFFCE8815F4 /* ArchivoCondensed-SemiBold.ttf in Resources */,
 				90301BC6A3C9CF95B24E19B7 /* Assets.xcassets in Resources */,
-				62620EAB7FEAF92F3D242AF4 /* RobotoCondensed-Bold.ttf in Resources */,
-				76723A8E557F88D8B1E3943F /* RobotoCondensed-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

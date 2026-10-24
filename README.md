@@ -95,7 +95,7 @@ To change the icon, regenerate those files from the source artwork. The system r
 
 ## Fonts
 
-Digits and labels use [Roboto Condensed](https://github.com/googlefonts/roboto-3-classic) (Bold and SemiBold), bundled in both apps under the Apache License 2.0.
+Digits use [Anton](https://github.com/googlefonts/AntonFont) and the small labels use [Archivo](https://github.com/Omnibus-Type/Archivo) at condensed width (SemiBold). Both are bundled in both apps under the SIL Open Font License.
 
 ## Status
 

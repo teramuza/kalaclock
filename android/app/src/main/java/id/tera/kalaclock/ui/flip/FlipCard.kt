@@ -15,6 +15,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import kotlin.math.roundToInt
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,9 +45,12 @@ import androidx.compose.ui.unit.sp
 
 val CardColor = Color(0xFF0B0B0B)
 
-// Roboto Condensed: a narrow neo-grotesque with flat-cut terminals, close to the classic flip clock look.
-private val DigitFont = FontFamily(Font(R.font.roboto_condensed_bold, FontWeight.Bold))
-private val LabelFont = FontFamily(Font(R.font.roboto_condensed_semibold, FontWeight.SemiBold))
+// Anton for the digits: a very tall, narrow grotesque. Archivo Condensed for the small labels.
+private val DigitFont = FontFamily(Font(R.font.anton_regular, FontWeight.Normal))
+/** Height of the digits' vertical center above the baseline, in em (Anton: ink from -0.008 to 0.867). */
+private const val DIGIT_INK_CENTER = 0.43f
+
+private val LabelFont = FontFamily(Font(R.font.archivo_condensed_semibold, FontWeight.SemiBold))
 
 /** One half of a card showing [text]; [top] picks which half is visible. */
 @Composable
@@ -68,14 +74,18 @@ private fun Half(
             },
         contentAlignment = Alignment.Center,
     ) {
-        // Roboto Condensed's line box is 1.17em with the baseline 0.93em down and digits 0.71em tall,
-        // so the glyphs sit 0.014em above the box center; nudge them down so the center line splits
-        // the digits evenly.
-        val lift = with(LocalDensity.current) { (-fontSize.toPx() * 0.014f).toDp() }
+        // Line box metrics differ per platform and per font, so place the digits from the glyph
+        // ink instead: Anton's digits are centered 0.43em above the baseline. Shift the text so
+        // that point lands on the middle of the card, where the center line is.
+        val fontSizePx = with(LocalDensity.current) { fontSize.toPx() }
+        var shiftPx by remember { mutableFloatStateOf(0f) }
         Text(
             text,
-            modifier = Modifier.offset(y = -lift),
-            style = TextStyle(fontSize = fontSize, fontFamily = DigitFont, fontWeight = FontWeight.Bold, color = color),
+            modifier = Modifier.offset { IntOffset(0, shiftPx.roundToInt()) },
+            onTextLayout = { r ->
+                shiftPx = DIGIT_INK_CENTER * fontSizePx + r.size.height / 2f - r.firstBaseline
+            },
+            style = TextStyle(fontSize = fontSize, fontFamily = DigitFont, fontWeight = FontWeight.Normal, color = color),
         )
     }
 }
@@ -144,8 +154,9 @@ fun FlipCard(
     modifier: Modifier = Modifier,
 ) {
     val fontSize = with(LocalDensity.current) {
-        // Digits are 0.505em wide; fill about 86% of the card width (or 1.08em = 77% digit height).
-        minOf(height.toPx() * 1.08f, width.toPx() * 0.86f / (text.length.coerceAtLeast(1) * 0.505f)).toSp()
+        // Digits are 0.494em wide and 0.86em tall. Keep them under about 56% of the card height so
+        // there is clear space between the clock and the date / weekday labels.
+        minOf(height.toPx() * 0.65f, width.toPx() * 0.78f / (text.length.coerceAtLeast(1) * 0.494f)).toSp()
     }
     val labelSize = with(LocalDensity.current) { (height.toPx() * 0.065f).toSp() }
     val digitWidth = with(LocalDensity.current) { (fontSize.toPx() * 0.52f).toDp() }
@@ -187,7 +198,7 @@ fun FlipCard(
                 fontSize = labelSize,
                 fontFamily = LabelFont,
                 fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.align(Alignment.TopCenter).padding(top = height * 0.04f),
+                modifier = Modifier.align(Alignment.TopCenter).padding(top = height * 0.05f),
             )
         }
         bottomLabel?.let {

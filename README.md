@@ -9,7 +9,7 @@ Two big split-flap cards show the hour and the minute, with the date, weekday an
 ## Features
 
 - **Flip clock**: animated flip cards, 12/24h, AM/PM, date, weekday, battery indicator.
-- **Stopwatch, countdown and Pomodoro**: focus 25 / break 5 / long break 15 after 4 sessions, all configurable. Time is derived from monotonic timestamps, not tick counting, so it does not drift.
+- **Stopwatch, countdown and Pomodoro**: focus 25 / break 5 / long break 15 after 4 sessions, all configurable. Time is derived from monotonic timestamps, not tick counting, so it does not drift. On Android, Do Not Disturb turns on during a Pomodoro focus phase and goes back to its previous setting afterwards.
 - **Portrait and landscape**: cards stack in portrait and sit side by side in landscape. The orientation follows the sensor even when the system rotation lock is on.
 - **OLED friendly**: pure `#000000` background, optional card-less mode (digits only), auto dim after 15 seconds without touch, and an optional pixel shift that is off by default.
 - **Now playing**: artist, title and artwork (grayscale and dimmed), when the platform allows it.
@@ -66,6 +66,7 @@ Tests: `KalaClockTests` (timer engine), run with Cmd+U.
 - The timer finish alert is a local notification, because iOS has no foreground service. Time is still computed from monotonic timestamps.
 - Now playing reads Apple Music only. iOS does not let apps read other players such as Spotify or YouTube Music.
 - Brightness is system-wide on iOS, so auto dim restores the original brightness when the app leaves the foreground.
+- iOS does not let apps change Focus or Do Not Disturb, so the Pomodoro Do Not Disturb feature is Android only. You can create a Focus in iOS Settings and start it yourself.
 - There is no system back button, so back-to-clock is not ported.
 
 ## Privacy and security
@@ -76,6 +77,7 @@ Android permissions and why they exist:
 
 - `POST_NOTIFICATIONS`, `FOREGROUND_SERVICE`, `USE_EXACT_ALARM`, `WAKE_LOCK`: the timer notification and the finish alarm.
 - Notification access (granted by the user in Settings): now playing and the message/email icons. Only the media title, artist and artwork, plus the package name and category of notifications, are read. Notification text is never read.
+- Do Not Disturb access (granted by the user): switching Do Not Disturb on during Pomodoro focus and restoring the previous mode afterwards. Alarms and the finish alert still come through.
 - Device admin with the `force-lock` policy only (granted by the user): locking the phone after idle. It cannot wipe data or change passwords.
 
 Only the launcher activity is exported. The device admin receiver and the notification listener are exported because Android requires it, and both are protected by system-only permissions. Backup is disabled. On iOS the app uses no network and only reads Apple Music's now playing item after you allow it.

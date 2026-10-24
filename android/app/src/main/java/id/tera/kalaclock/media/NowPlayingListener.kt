@@ -11,6 +11,7 @@ import android.media.session.MediaSessionManager
 import android.media.session.PlaybackState
 import android.provider.Settings
 import android.service.notification.NotificationListenerService
+import android.service.notification.StatusBarNotification
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -35,7 +36,14 @@ object NowPlayingState {
             ?.contains(c.packageName) == true
 }
 
-/** Only exists to hold notification access; reads active media sessions. */
+/** Packages with a visible notification, newest first. Filled by the listener below. */
+object NotificationState {
+    private val _packages = MutableStateFlow<List<String>>(emptyList())
+    val packages: StateFlow<List<String>> = _packages.asStateFlow()
+    internal fun set(v: List<String>) { _packages.value = v }
+}
+
+/** Holds notification access; reads active media sessions and which apps have notifications. */
 class NowPlayingListener : NotificationListenerService() {
     private lateinit var msm: MediaSessionManager
     private val component by lazy { ComponentName(this, NowPlayingListener::class.java) }
@@ -57,6 +65,24 @@ class NowPlayingListener : NotificationListenerService() {
         msm = getSystemService(MediaSessionManager::class.java)
         msm.addOnActiveSessionsChangedListener(sessionsListener, component)
         attach(msm.getActiveSessions(component))
+        refreshNotifications()
+    }
+
+    override fun onNotificationPosted(sbn: StatusBarNotification?) = refreshNotifications()
+
+    override fun onNotificationRemoved(sbn: StatusBarNotification?) = refreshNotifications()
+
+    private fun refreshNotifications() {
+        val pkgs = runCatching { activeNotifications }.getOrNull().orEmpty()
+            .filter {
+                !it.isOngoing &&
+                    it.packageName != packageName &&
+                    NotificationIconConfig.matches(it)
+            }
+            .sortedByDescending { it.postTime }
+            .map { it.packageName }
+            .distinct()
+        NotificationState.set(pkgs)
     }
 
     override fun onListenerDisconnected() {
@@ -64,6 +90,7 @@ class NowPlayingListener : NotificationListenerService() {
         controllers.forEach { it.unregisterCallback(callback) }
         controllers.clear()
         NowPlayingState.set(null)
+        NotificationState.set(emptyList())
     }
 
     private fun attach(list: List<MediaController>) {

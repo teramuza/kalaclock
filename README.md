@@ -95,7 +95,7 @@ To change the icon, regenerate those files from the source artwork. The system r
 
 ## Fonts
 
-Digits and labels use [Barlow Semi Condensed](https://github.com/jpt/barlow) (ExtraBold and SemiBold), bundled in both apps under the SIL Open Font License.
+Digits and labels use [Roboto Condensed](https://github.com/googlefonts/roboto-3-classic) (Bold and SemiBold), bundled in both apps under the Apache License 2.0.
 
 ## Status
 

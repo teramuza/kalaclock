@@ -10,14 +10,14 @@
 		09D32E75CB7743ABE7F3009F /* KalaClockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF6BB2A1C3E93CBB0B9A8D6 /* KalaClockApp.swift */; };
 		2DEF0FDCE75EBA57D74A2DD4 /* FlipGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4529DC95B8F19BB577395A1 /* FlipGroups.swift */; };
 		50A6A26CB90FD7B9909359D3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3477D71CAC2EFE070CD3E964 /* SettingsView.swift */; };
+		62620EAB7FEAF92F3D242AF4 /* RobotoCondensed-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7D34C6836AEFEC1466E38A3 /* RobotoCondensed-Bold.ttf */; };
+		76723A8E557F88D8B1E3943F /* RobotoCondensed-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 33D650D076B05AC30579A336 /* RobotoCondensed-SemiBold.ttf */; };
 		7ED08354DEF29D98F5C8BFEE /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F3AE9DFC7DCED0874BB8F /* RootView.swift */; };
 		8718B03F022B073BCC0C5B82 /* PixelShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC12DDCB7D0CB06B2D987CC3 /* PixelShift.swift */; };
 		90301BC6A3C9CF95B24E19B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D8E45AEBF66B5F88CDA3FEF /* Assets.xcassets */; };
 		9F0B41220766FA2B5A602858 /* TimerEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D71EFBB164318EB86C945 /* TimerEngineTests.swift */; };
-		B4B1F52F835F3A724E38D468 /* BarlowSemiCondensed-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 83BEB9B3A0B7AB437BEADD4D /* BarlowSemiCondensed-ExtraBold.ttf */; };
 		CB2095D9D52164A07C6429B6 /* ModeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB31A942436DF4A41A75514D /* ModeBar.swift */; };
 		CC8BFF53939A81BD15F19A51 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A86C0F24283FD751763D12 /* Settings.swift */; };
-		D692F82E70CC0825B2364474 /* BarlowSemiCondensed-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 01375AC4D3AB4DE74E6D21D2 /* BarlowSemiCondensed-SemiBold.ttf */; };
 		E01376F4C0CF6AFBEF1870CD /* ClockScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E45D1CDDEBE6CB8474EC2E /* ClockScreen.swift */; };
 		E063874FB0F12303DE0AA0B0 /* AppInfoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8EBAA1DA1E24623CB60B71 /* AppInfoConfig.swift */; };
 		E8DAAD771483BC6B5BBB5D79 /* BatteryIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9235AA7F70884FFCEBADFB /* BatteryIndicator.swift */; };
@@ -39,16 +39,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		01375AC4D3AB4DE74E6D21D2 /* BarlowSemiCondensed-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BarlowSemiCondensed-SemiBold.ttf"; sourceTree = "<group>"; };
 		1A9235AA7F70884FFCEBADFB /* BatteryIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryIndicator.swift; sourceTree = "<group>"; };
 		22A86C0F24283FD751763D12 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		33D650D076B05AC30579A336 /* RobotoCondensed-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-SemiBold.ttf"; sourceTree = "<group>"; };
 		3477D71CAC2EFE070CD3E964 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3F7D71EFBB164318EB86C945 /* TimerEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngineTests.swift; sourceTree = "<group>"; };
 		4E4F3AE9DFC7DCED0874BB8F /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		70E0E9A56612BE1BB2FCF37E /* NowPlaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlaying.swift; sourceTree = "<group>"; };
 		779FB0BD697E8ED3C4CD190A /* TimerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerScreen.swift; sourceTree = "<group>"; };
 		7F97701AFE8909F92C4AD4EB /* FlipCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipCard.swift; sourceTree = "<group>"; };
-		83BEB9B3A0B7AB437BEADD4D /* BarlowSemiCondensed-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BarlowSemiCondensed-ExtraBold.ttf"; sourceTree = "<group>"; };
 		87612D086C673B4B626DBD60 /* KalaClock.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = KalaClock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D8E45AEBF66B5F88CDA3FEF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9DF6BB2A1C3E93CBB0B9A8D6 /* KalaClockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KalaClockApp.swift; sourceTree = "<group>"; };
@@ -57,6 +56,7 @@
 		AB31A942436DF4A41A75514D /* ModeBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeBar.swift; sourceTree = "<group>"; };
 		ACFF179713C9DDE75C7A7E4D /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngine.swift; sourceTree = "<group>"; };
 		C1018C867593A6131E62A39B /* TimerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerController.swift; sourceTree = "<group>"; };
+		C7D34C6836AEFEC1466E38A3 /* RobotoCondensed-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-Bold.ttf"; sourceTree = "<group>"; };
 		DE8EBAA1DA1E24623CB60B71 /* AppInfoConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoConfig.swift; sourceTree = "<group>"; };
 		E8995F38452E8165E263B44D /* KalaClockTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = KalaClockTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC12DDCB7D0CB06B2D987CC3 /* PixelShift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelShift.swift; sourceTree = "<group>"; };
@@ -93,8 +93,8 @@
 		71E9125ED1ED4A799D7F963A /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				83BEB9B3A0B7AB437BEADD4D /* BarlowSemiCondensed-ExtraBold.ttf */,
-				01375AC4D3AB4DE74E6D21D2 /* BarlowSemiCondensed-SemiBold.ttf */,
+				C7D34C6836AEFEC1466E38A3 /* RobotoCondensed-Bold.ttf */,
+				33D650D076B05AC30579A336 /* RobotoCondensed-SemiBold.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -232,8 +232,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				90301BC6A3C9CF95B24E19B7 /* Assets.xcassets in Resources */,
-				B4B1F52F835F3A724E38D468 /* BarlowSemiCondensed-ExtraBold.ttf in Resources */,
-				D692F82E70CC0825B2364474 /* BarlowSemiCondensed-SemiBold.ttf in Resources */,
+				62620EAB7FEAF92F3D242AF4 /* RobotoCondensed-Bold.ttf in Resources */,
+				76723A8E557F88D8B1E3943F /* RobotoCondensed-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

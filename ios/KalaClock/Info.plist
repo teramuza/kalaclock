@@ -24,8 +24,8 @@
 	<string>KalaClock shows the Apple Music track that is playing on this device. Nothing leaves your device.</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>BarlowSemiCondensed-ExtraBold.ttf</string>
-		<string>BarlowSemiCondensed-SemiBold.ttf</string>
+		<string>RobotoCondensed-Bold.ttf</string>
+		<string>RobotoCondensed-SemiBold.ttf</string>
 	</array>
 	<key>UILaunchScreen</key>
 	<dict>

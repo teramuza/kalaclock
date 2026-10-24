@@ -24,6 +24,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -94,7 +95,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    /** True while the keyguard is up. Touches are ignored then; the user unlocks with the lock icon or fingerprint. */
+    /** True while the keyguard is up. Touches are ignored then; the user unlocks with fingerprint or PIN. */
     private val locked = mutableStateOf(false)
 
     private val keyguardReceiver = object : BroadcastReceiver() {
@@ -167,6 +168,13 @@ class MainActivity : ComponentActivity() {
         // Idle lock: after 5 minutes without a touch, lock the phone; the clock stays on screen.
         var lastInteraction by remember { mutableStateOf(System.currentTimeMillis()) }
         val isLocked by locked
+        var lockHint by remember { mutableStateOf(false) }
+        LaunchedEffect(lockHint, isLocked) {
+            if (lockHint) {
+                delay(2_500)
+                lockHint = false
+            }
+        }
         LaunchedEffect(lastInteraction, settings.autoLock, isLocked) {
             if (!settings.autoLock || isLocked || !DeviceLock.isAdmin(this@MainActivity)) return@LaunchedEffect
             delay(5 * 60_000L)
@@ -235,7 +243,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
             if (isLocked) {
-                // Swallow all touches while locked; only the lock icon works (asks to unlock).
+                // Swallow all touches while locked; the lock icon only shows a hint.
                 Box(
                     Modifier.fillMaxSize().pointerInput(Unit) {
                         awaitPointerEventScope {
@@ -253,8 +261,21 @@ class MainActivity : ComponentActivity() {
                         .align(Alignment.BottomEnd)
                         .padding(24.dp)
                         .size(28.dp)
-                        .clickable { getSystemService(KeyguardManager::class.java).requestDismissKeyguard(this@MainActivity, null) },
+                        .clickable { lockHint = true },
                 )
+                if (lockHint) {
+                    // In-app message: asking the system to unlock would force the lock screen.
+                    Text(
+                        "Unlock device to access the app features",
+                        color = Color.White.copy(alpha = dim),
+                        fontSize = 14.sp,
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(end = 24.dp, bottom = 72.dp)
+                            .background(Color(0xFF222222), RoundedCornerShape(8.dp))
+                            .padding(horizontal = 14.dp, vertical = 10.dp),
+                    )
+                }
             }
         }
     }

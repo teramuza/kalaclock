@@ -111,7 +111,12 @@ fun ClockScreen(settings: Settings, dim: Float, modifier: Modifier = Modifier) {
                 Box(Modifier.weight(1f).fillMaxWidth()) {
                     FlipGroups(groups, settings.filledCards, DigitGray, Modifier.fillMaxSize(), dim)
                 }
-                if (settings.showMedia) NowPlayingBar(fg)
+                if (settings.showMedia) {
+                    // Bottom-left, with room on the right for the notification / lock icons.
+                    Box(Modifier.fillMaxWidth().padding(start = 24.dp, end = 140.dp, bottom = 24.dp)) {
+                        NowPlayingBar(fg, scale = 0.9f, startAligned = true)
+                    }
+                }
             }
         }
     }
@@ -181,15 +186,15 @@ private fun parseBattery(i: Intent?): BatteryInfo {
 }
 
 @Composable
-private fun NowPlayingBar(fg: Color, compact: Boolean = false) {
+private fun NowPlayingBar(fg: Color, compact: Boolean = false, scale: Float = 1f, startAligned: Boolean = compact) {
     val np by NowPlayingState.value.collectAsState()
     val n = np ?: return
     Row(
-        Modifier.fillMaxWidth().padding(if (compact) 0.dp else 16.dp),
-        horizontalArrangement = if (compact) Arrangement.Start else Arrangement.Center,
+        Modifier.fillMaxWidth().padding(if (startAligned) 0.dp else 16.dp),
+        horizontalArrangement = if (startAligned) Arrangement.Start else Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        val artSize = if (compact) 40.dp else 56.dp
+        val artSize = (if (compact) 40.dp else 56.dp) * scale
         val ctx = LocalContext.current
         val sourceIcon = remember(n.packageName) {
             n.packageName?.let { pkg ->
@@ -206,7 +211,7 @@ private fun NowPlayingBar(fg: Color, compact: Boolean = false) {
                 }
                 // Small logo of the player the track comes from, on the artwork's bottom-right corner.
                 if (sourceIcon != null) {
-                    val badge = if (compact) 16.dp else 20.dp
+                    val badge = (if (compact) 16.dp else 20.dp) * scale
                     Image(
                         sourceIcon, null,
                         Modifier
@@ -222,8 +227,8 @@ private fun NowPlayingBar(fg: Color, compact: Boolean = false) {
             }
         }
         Column(Modifier.padding(start = if (compact) 8.dp else 12.dp)) {
-            Text(n.title, color = fg, fontSize = if (compact) 13.sp else 16.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
-            if (n.artist.isNotBlank()) Text(n.artist, color = fg.copy(alpha = fg.alpha * 0.7f), fontSize = if (compact) 11.sp else 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text(n.title, color = fg, fontSize = ((if (compact) 13f else 16f) * scale).sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            if (n.artist.isNotBlank()) Text(n.artist, color = fg.copy(alpha = fg.alpha * 0.7f), fontSize = ((if (compact) 11f else 14f) * scale).sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
     }
 }

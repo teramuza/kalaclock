@@ -1,1 +1,29 @@
+# macOS / editors
 .DS_Store
+.idea/
+.vscode/
+
+# Android (also anywhere under android/)
+**/build/
+.gradle/
+local.properties
+*.iml
+.kotlin/
+captures/
+*.apk
+*.aab
+*.jks
+*.keystore
+
+# iOS / Xcode (for the future ios/ project)
+xcuserdata/
+*.xcuserstate
+DerivedData/
+build/
+Pods/
+*.xcworkspace/xcuserdata/
+*.ipa
+*.dSYM.zip
+*.dSYM
+.swiftpm/
+Carthage/Build/

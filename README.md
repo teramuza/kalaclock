@@ -68,6 +68,20 @@ Tests: `KalaClockTests` (timer engine), run with Cmd+U.
 - Brightness is system-wide on iOS, so auto dim restores the original brightness when the app leaves the foreground.
 - There is no system back button, so back-to-clock is not ported.
 
+## Privacy and security
+
+KalaClock works fully offline. It has no network permission, no analytics, no accounts and no credentials, and it does not write logs. Settings stay on the device.
+
+Android permissions and why they exist:
+
+- `POST_NOTIFICATIONS`, `FOREGROUND_SERVICE`, `USE_EXACT_ALARM`, `WAKE_LOCK`: the timer notification and the finish alarm.
+- Notification access (granted by the user in Settings): now playing and the message/email icons. Only the media title, artist and artwork, plus the package name and category of notifications, are read. Notification text is never read.
+- Device admin with the `force-lock` policy only (granted by the user): locking the phone after idle. It cannot wipe data or change passwords.
+
+Only the launcher activity is exported. The device admin receiver and the notification listener are exported because Android requires it, and both are protected by system-only permissions. Backup is disabled. On iOS the app uses no network and only reads Apple Music's now playing item after you allow it.
+
+Never commit `android/keystore.properties` or a keystore file; both are git-ignored.
+
 ## App icon
 
 The source artwork is `icon-kalaclock.png` in the repo root. The platform icons are derived from it:

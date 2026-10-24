@@ -29,7 +29,15 @@ data class NowPlaying(val title: String, val artist: String, val art: Bitmap?, v
 object NowPlayingState {
     private val _value = MutableStateFlow<NowPlaying?>(null)
     val value: StateFlow<NowPlaying?> = _value.asStateFlow()
-    internal fun set(v: NowPlaying?) { _value.value = v }
+    internal fun set(v: NowPlaying?) {
+        // Players re-send identical metadata with a fresh Bitmap object on every callback. Compare
+        // the track, not the Bitmap identity, so an unchanged track does not redraw the screen.
+        val old = _value.value
+        val same = old != null && v != null &&
+            old.title == v.title && old.artist == v.artist && old.packageName == v.packageName &&
+            old.art?.byteCount == v.art?.byteCount
+        if (!same) _value.value = v
+    }
 
     fun hasAccess(c: Context): Boolean =
         Settings.Secure.getString(c.contentResolver, "enabled_notification_listeners")

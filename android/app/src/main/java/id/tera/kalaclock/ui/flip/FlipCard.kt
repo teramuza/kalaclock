@@ -124,7 +124,8 @@ fun FlipCard(
             // and per-text alpha there would add up and flash brighter mid-flip.
             .graphicsLayer {
                 this.alpha = alpha
-                compositingStrategy = CompositingStrategy.Offscreen
+                // An offscreen buffer is only needed while dimmed; at full brightness it would just cost memory.
+                compositingStrategy = if (alpha < 1f) CompositingStrategy.Offscreen else CompositingStrategy.Auto
             }
             .clip(RoundedCornerShape(radius)),
     ) {

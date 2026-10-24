@@ -19,7 +19,6 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.net.URL
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -128,7 +127,7 @@ class NowPlayingListener : NotificationListenerService() {
             NowPlayingState.set(NowPlaying(title, artist, art, c.packageName))
             return
         }
-        // Many players only expose an artwork URI; show text now, then fill in the art.
+        // Some players only expose a local artwork URI; show text now, then fill in the art.
         val cached = lastArt?.takeIf { it.first == key }?.second
         NowPlayingState.set(NowPlaying(title, artist, cached, c.packageName))
         if (cached != null) return
@@ -145,12 +144,11 @@ class NowPlayingListener : NotificationListenerService() {
         }
     }
 
+    /** Local artwork only (content:// or file://). The app has no network access by design. */
     private fun loadArt(uri: String): Bitmap? = runCatching {
         val u = Uri.parse(uri)
-        when (u.scheme) {
-            "http", "https" -> URL(uri).openStream().use { BitmapFactory.decodeStream(it) }
-            else -> contentResolver.openInputStream(u)?.use { BitmapFactory.decodeStream(it) }
-        }
+        if (u.scheme != "content" && u.scheme != "file") return@runCatching null
+        contentResolver.openInputStream(u)?.use { BitmapFactory.decodeStream(it) }
     }.getOrNull()
 
     override fun onDestroy() {

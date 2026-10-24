@@ -4,6 +4,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -41,9 +42,9 @@ import androidx.compose.ui.unit.sp
 
 val CardColor = Color(0xFF0B0B0B)
 
-// Barlow Semi Condensed: DIN-like, flat-topped digits that suit the split-flap look.
-private val DigitFont = FontFamily(Font(R.font.barlow_semi_condensed_extrabold, FontWeight.ExtraBold))
-private val LabelFont = FontFamily(Font(R.font.barlow_semi_condensed_semibold, FontWeight.SemiBold))
+// Roboto Condensed: a narrow neo-grotesque with flat-cut terminals, close to the classic flip clock look.
+private val DigitFont = FontFamily(Font(R.font.roboto_condensed_bold, FontWeight.Bold))
+private val LabelFont = FontFamily(Font(R.font.roboto_condensed_semibold, FontWeight.SemiBold))
 
 /** One half of a card showing [text]; [top] picks which half is visible. */
 @Composable
@@ -67,33 +68,24 @@ private fun Half(
             },
         contentAlignment = Alignment.Center,
     ) {
-        // Barlow's line box is 1.2em with caps 0.7em tall on a 1.0em baseline, so the glyphs
-        // sit 0.05em below the box center; lift them so the center line splits the digits evenly.
-        val lift = with(LocalDensity.current) { (fontSize.toPx() * 0.05f).toDp() }
+        // Roboto Condensed's line box is 1.17em with the baseline 0.93em down and digits 0.71em tall,
+        // so the glyphs sit 0.014em above the box center; nudge them down so the center line splits
+        // the digits evenly.
+        val lift = with(LocalDensity.current) { (-fontSize.toPx() * 0.014f).toDp() }
         Text(
             text,
             modifier = Modifier.offset(y = -lift),
-            style = TextStyle(fontSize = fontSize, fontFamily = DigitFont, fontWeight = FontWeight.ExtraBold, color = color),
+            style = TextStyle(fontSize = fontSize, fontFamily = DigitFont, fontWeight = FontWeight.Bold, color = color),
         )
     }
 }
 
 /**
- * Flip card: static top shows the new value, static bottom shows the old one,
- * and a rotating half-card sweeps from old to new.
+ * One flipping surface: static top shows the new value, static bottom shows the old one,
+ * and a rotating half sweeps from old to new. Flips only when its own [text] changes.
  */
 @Composable
-fun FlipCard(
-    text: String,
-    width: Dp,
-    height: Dp,
-    filled: Boolean,
-    color: Color = Color.White,
-    topLabel: String? = null,
-    bottomLabel: String? = null,
-    alpha: Float = 1f,
-    modifier: Modifier = Modifier,
-) {
+private fun FlipUnit(text: String, width: Dp, height: Dp, bg: Color, fontSize: TextUnit, color: Color) {
     var shown by remember { mutableStateOf(text) }
     var previous by remember { mutableStateOf(text) }
     val angle = remember { Animatable(0f) }
@@ -108,32 +100,15 @@ fun FlipCard(
         }
     }
 
-    val fontSize = with(LocalDensity.current) {
-        minOf(height.toPx() * 0.72f, width.toPx() / (text.length.coerceAtLeast(1) * 0.56f)).toSp()
-    }
-    val labelSize = with(LocalDensity.current) { (height.toPx() * 0.065f).toSp() }
     val camera = with(LocalDensity.current) { 16f * density }
-    val radius = height * 0.13f
-    val bg = if (filled) CardColor else Color.Transparent
     val flipping = angle.isRunning || angle.value in 0.1f..179.9f
 
-    Box(
-        modifier
-            .size(width, height)
-            // Dim the finished card as one offscreen layer: the flap overlaps the static halves,
-            // and per-text alpha there would add up and flash brighter mid-flip.
-            .graphicsLayer {
-                this.alpha = alpha
-                // An offscreen buffer is only needed while dimmed; at full brightness it would just cost memory.
-                compositingStrategy = if (alpha < 1f) CompositingStrategy.Offscreen else CompositingStrategy.Auto
-            }
-            .clip(RoundedCornerShape(radius)),
-    ) {
+    Box(Modifier.size(width, height)) {
         // static top: new value
-        Box(Modifier.fillMaxSize()) { Half(shown, true, bg, fontSize, color, Modifier.fillMaxSize()) }
+        Half(shown, true, bg, fontSize, color, Modifier.fillMaxSize())
         // static bottom: old value until the flap lands
         val bottomText = if (angle.value >= 90f) shown else previous
-        Box(Modifier.fillMaxSize()) { Half(bottomText, false, bg, fontSize, color, Modifier.fillMaxSize()) }
+        Half(bottomText, false, bg, fontSize, color, Modifier.fillMaxSize())
         // moving flap: old top folds down, then new bottom unfolds
         if (flipping) {
             val firstHalf = angle.value < 90f
@@ -147,6 +122,54 @@ fun FlipCard(
             ) {
                 if (firstHalf) Half(previous, true, bg, fontSize, color, Modifier.fillMaxSize())
                 else Half(shown, false, bg, fontSize, color, Modifier.fillMaxSize())
+            }
+        }
+    }
+}
+
+/**
+ * Flip card. With a card ([filled]) the whole group flips as one. Without a card (digits only)
+ * each digit flips on its own, so in "XY" an unchanged X stays still while Y flips.
+ */
+@Composable
+fun FlipCard(
+    text: String,
+    width: Dp,
+    height: Dp,
+    filled: Boolean,
+    color: Color = Color.White,
+    topLabel: String? = null,
+    bottomLabel: String? = null,
+    alpha: Float = 1f,
+    modifier: Modifier = Modifier,
+) {
+    val fontSize = with(LocalDensity.current) {
+        // Digits are 0.505em wide; fill about 86% of the card width (or 1.08em = 77% digit height).
+        minOf(height.toPx() * 1.08f, width.toPx() * 0.86f / (text.length.coerceAtLeast(1) * 0.505f)).toSp()
+    }
+    val labelSize = with(LocalDensity.current) { (height.toPx() * 0.065f).toSp() }
+    val digitWidth = with(LocalDensity.current) { (fontSize.toPx() * 0.52f).toDp() }
+    val radius = height * 0.13f
+    // Digits-only still needs an opaque surface (black on black) so a flap hides what is behind it.
+    val bg = if (filled) CardColor else Color.Black
+
+    Box(
+        modifier
+            .size(width, height)
+            // Dim the finished card as one offscreen layer: the flap overlaps the static halves,
+            // and per-text alpha there would add up and flash brighter mid-flip.
+            .graphicsLayer {
+                this.alpha = alpha
+                // An offscreen buffer is only needed while dimmed; at full brightness it would just cost memory.
+                compositingStrategy = if (alpha < 1f) CompositingStrategy.Offscreen else CompositingStrategy.Auto
+            }
+            .clip(RoundedCornerShape(radius)),
+    ) {
+        if (filled) {
+            FlipUnit(text, width, height, bg, fontSize, color)
+        } else {
+            Row(Modifier.align(Alignment.Center)) {
+                text.forEach { ch -> FlipUnit(ch.toString(), digitWidth, height, bg, fontSize, color) }
             }
         }
         // center line

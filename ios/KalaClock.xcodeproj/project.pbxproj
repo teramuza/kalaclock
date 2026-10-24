@@ -1,0 +1,500 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		09D32E75CB7743ABE7F3009F /* KalaClockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF6BB2A1C3E93CBB0B9A8D6 /* KalaClockApp.swift */; };
+		2DEF0FDCE75EBA57D74A2DD4 /* FlipGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4529DC95B8F19BB577395A1 /* FlipGroups.swift */; };
+		50A6A26CB90FD7B9909359D3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3477D71CAC2EFE070CD3E964 /* SettingsView.swift */; };
+		7ED08354DEF29D98F5C8BFEE /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F3AE9DFC7DCED0874BB8F /* RootView.swift */; };
+		8718B03F022B073BCC0C5B82 /* PixelShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC12DDCB7D0CB06B2D987CC3 /* PixelShift.swift */; };
+		9F0B41220766FA2B5A602858 /* TimerEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7D71EFBB164318EB86C945 /* TimerEngineTests.swift */; };
+		B4B1F52F835F3A724E38D468 /* BarlowSemiCondensed-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 83BEB9B3A0B7AB437BEADD4D /* BarlowSemiCondensed-ExtraBold.ttf */; };
+		CB2095D9D52164A07C6429B6 /* ModeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB31A942436DF4A41A75514D /* ModeBar.swift */; };
+		CC8BFF53939A81BD15F19A51 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A86C0F24283FD751763D12 /* Settings.swift */; };
+		D692F82E70CC0825B2364474 /* BarlowSemiCondensed-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 01375AC4D3AB4DE74E6D21D2 /* BarlowSemiCondensed-SemiBold.ttf */; };
+		E01376F4C0CF6AFBEF1870CD /* ClockScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E45D1CDDEBE6CB8474EC2E /* ClockScreen.swift */; };
+		E8DAAD771483BC6B5BBB5D79 /* BatteryIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9235AA7F70884FFCEBADFB /* BatteryIndicator.swift */; };
+		EEB35BAF4D8CA7F94AE89212 /* TimerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1018C867593A6131E62A39B /* TimerController.swift */; };
+		F53797235640D9A94B39902D /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFF179713C9DDE75C7A7E4D /* TimerEngine.swift */; };
+		F70D0EEEE7665054616840F4 /* TimerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779FB0BD697E8ED3C4CD190A /* TimerScreen.swift */; };
+		FD2FC8C18F26D54DC8EB76CC /* NowPlaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E0E9A56612BE1BB2FCF37E /* NowPlaying.swift */; };
+		FDEBB439C469F4527167707E /* FlipCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F97701AFE8909F92C4AD4EB /* FlipCard.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0B6A21B099D216E4431724E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97A972AD92596F84EBD3D95F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA1007BD67F730C25FA92ED0;
+			remoteInfo = KalaClock;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		01375AC4D3AB4DE74E6D21D2 /* BarlowSemiCondensed-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BarlowSemiCondensed-SemiBold.ttf"; sourceTree = "<group>"; };
+		1A9235AA7F70884FFCEBADFB /* BatteryIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryIndicator.swift; sourceTree = "<group>"; };
+		22A86C0F24283FD751763D12 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		3477D71CAC2EFE070CD3E964 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		3F7D71EFBB164318EB86C945 /* TimerEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngineTests.swift; sourceTree = "<group>"; };
+		4E4F3AE9DFC7DCED0874BB8F /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		70E0E9A56612BE1BB2FCF37E /* NowPlaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlaying.swift; sourceTree = "<group>"; };
+		779FB0BD697E8ED3C4CD190A /* TimerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerScreen.swift; sourceTree = "<group>"; };
+		7F97701AFE8909F92C4AD4EB /* FlipCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipCard.swift; sourceTree = "<group>"; };
+		83BEB9B3A0B7AB437BEADD4D /* BarlowSemiCondensed-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BarlowSemiCondensed-ExtraBold.ttf"; sourceTree = "<group>"; };
+		87612D086C673B4B626DBD60 /* KalaClock.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = KalaClock.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9DF6BB2A1C3E93CBB0B9A8D6 /* KalaClockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KalaClockApp.swift; sourceTree = "<group>"; };
+		A4529DC95B8F19BB577395A1 /* FlipGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipGroups.swift; sourceTree = "<group>"; };
+		A5E45D1CDDEBE6CB8474EC2E /* ClockScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockScreen.swift; sourceTree = "<group>"; };
+		AB31A942436DF4A41A75514D /* ModeBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeBar.swift; sourceTree = "<group>"; };
+		ACFF179713C9DDE75C7A7E4D /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngine.swift; sourceTree = "<group>"; };
+		C1018C867593A6131E62A39B /* TimerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerController.swift; sourceTree = "<group>"; };
+		E8995F38452E8165E263B44D /* KalaClockTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = KalaClockTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC12DDCB7D0CB06B2D987CC3 /* PixelShift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelShift.swift; sourceTree = "<group>"; };
+		FC1A1EEF12C3EE22F4AE5595 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		19FF01356301DA998010480B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				87612D086C673B4B626DBD60 /* KalaClock.app */,
+				E8995F38452E8165E263B44D /* KalaClockTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		41FF27D54F3F977E49A5AF51 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				1A9235AA7F70884FFCEBADFB /* BatteryIndicator.swift */,
+				A5E45D1CDDEBE6CB8474EC2E /* ClockScreen.swift */,
+				7F97701AFE8909F92C4AD4EB /* FlipCard.swift */,
+				A4529DC95B8F19BB577395A1 /* FlipGroups.swift */,
+				AB31A942436DF4A41A75514D /* ModeBar.swift */,
+				70E0E9A56612BE1BB2FCF37E /* NowPlaying.swift */,
+				EC12DDCB7D0CB06B2D987CC3 /* PixelShift.swift */,
+				4E4F3AE9DFC7DCED0874BB8F /* RootView.swift */,
+				3477D71CAC2EFE070CD3E964 /* SettingsView.swift */,
+				779FB0BD697E8ED3C4CD190A /* TimerScreen.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		71E9125ED1ED4A799D7F963A /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				83BEB9B3A0B7AB437BEADD4D /* BarlowSemiCondensed-ExtraBold.ttf */,
+				01375AC4D3AB4DE74E6D21D2 /* BarlowSemiCondensed-SemiBold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		B07052981D28BB6E3D1AAFA4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				71E9125ED1ED4A799D7F963A /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D05E8870B5CFC25EBCA13A6B /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				ACFF179713C9DDE75C7A7E4D /* TimerEngine.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		D6243B2902898549521435BB /* KalaClockTests */ = {
+			isa = PBXGroup;
+			children = (
+				3F7D71EFBB164318EB86C945 /* TimerEngineTests.swift */,
+			);
+			path = KalaClockTests;
+			sourceTree = "<group>";
+		};
+		E3525BA8BD9F0BBA63372CAD = {
+			isa = PBXGroup;
+			children = (
+				EB307AE1853584ED1422E086 /* KalaClock */,
+				D6243B2902898549521435BB /* KalaClockTests */,
+				19FF01356301DA998010480B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EB307AE1853584ED1422E086 /* KalaClock */ = {
+			isa = PBXGroup;
+			children = (
+				FC1A1EEF12C3EE22F4AE5595 /* Info.plist */,
+				9DF6BB2A1C3E93CBB0B9A8D6 /* KalaClockApp.swift */,
+				EDD451BBF5DEF3F683CE449C /* Data */,
+				D05E8870B5CFC25EBCA13A6B /* Domain */,
+				B07052981D28BB6E3D1AAFA4 /* Resources */,
+				41FF27D54F3F977E49A5AF51 /* UI */,
+			);
+			path = KalaClock;
+			sourceTree = "<group>";
+		};
+		EDD451BBF5DEF3F683CE449C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				22A86C0F24283FD751763D12 /* Settings.swift */,
+				C1018C867593A6131E62A39B /* TimerController.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EA1007BD67F730C25FA92ED0 /* KalaClock */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4BBA259DB82B6B06B92930BC /* Build configuration list for PBXNativeTarget "KalaClock" */;
+			buildPhases = (
+				BB170E8551A5CC450C0EAA25 /* Sources */,
+				30410C6B071B1F52C0232D5B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KalaClock;
+			packageProductDependencies = (
+			);
+			productName = KalaClock;
+			productReference = 87612D086C673B4B626DBD60 /* KalaClock.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F9204254266E59C1A46C1899 /* KalaClockTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF03F6856737D6A783E42715 /* Build configuration list for PBXNativeTarget "KalaClockTests" */;
+			buildPhases = (
+				AC4690A75BFD2954406DFFE1 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D8C3E70D10D0B72EFE691B7E /* PBXTargetDependency */,
+			);
+			name = KalaClockTests;
+			packageProductDependencies = (
+			);
+			productName = KalaClockTests;
+			productReference = E8995F38452E8165E263B44D /* KalaClockTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		97A972AD92596F84EBD3D95F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = E7C8C3D2BBE4B4699A45F3D0 /* Build configuration list for PBXProject "KalaClock" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = E3525BA8BD9F0BBA63372CAD;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 19FF01356301DA998010480B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EA1007BD67F730C25FA92ED0 /* KalaClock */,
+				F9204254266E59C1A46C1899 /* KalaClockTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		30410C6B071B1F52C0232D5B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4B1F52F835F3A724E38D468 /* BarlowSemiCondensed-ExtraBold.ttf in Resources */,
+				D692F82E70CC0825B2364474 /* BarlowSemiCondensed-SemiBold.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AC4690A75BFD2954406DFFE1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9F0B41220766FA2B5A602858 /* TimerEngineTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB170E8551A5CC450C0EAA25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8DAAD771483BC6B5BBB5D79 /* BatteryIndicator.swift in Sources */,
+				E01376F4C0CF6AFBEF1870CD /* ClockScreen.swift in Sources */,
+				FDEBB439C469F4527167707E /* FlipCard.swift in Sources */,
+				2DEF0FDCE75EBA57D74A2DD4 /* FlipGroups.swift in Sources */,
+				09D32E75CB7743ABE7F3009F /* KalaClockApp.swift in Sources */,
+				CB2095D9D52164A07C6429B6 /* ModeBar.swift in Sources */,
+				FD2FC8C18F26D54DC8EB76CC /* NowPlaying.swift in Sources */,
+				8718B03F022B073BCC0C5B82 /* PixelShift.swift in Sources */,
+				7ED08354DEF29D98F5C8BFEE /* RootView.swift in Sources */,
+				CC8BFF53939A81BD15F19A51 /* Settings.swift in Sources */,
+				50A6A26CB90FD7B9909359D3 /* SettingsView.swift in Sources */,
+				EEB35BAF4D8CA7F94AE89212 /* TimerController.swift in Sources */,
+				F53797235640D9A94B39902D /* TimerEngine.swift in Sources */,
+				F70D0EEEE7665054616840F4 /* TimerScreen.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D8C3E70D10D0B72EFE691B7E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA1007BD67F730C25FA92ED0 /* KalaClock */;
+			targetProxy = 0B6A21B099D216E4431724E1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0DA523E6D5CC2FB0A525E492 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		29E15AC25012143C8ACC34CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = KalaClock/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = id.tera.kalaclock;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4AE3510C237CD244E2DAE6B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = KalaClock/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = id.tera.kalaclock;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		606E56E0DC7B0E3E1E718C82 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		9B1A137DE2F5E0E71B017051 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = id.tera.KalaClockTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KalaClock.app/KalaClock";
+			};
+			name = Debug;
+		};
+		C3C1BAFF34AC91526621AB71 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = id.tera.KalaClockTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KalaClock.app/KalaClock";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4BBA259DB82B6B06B92930BC /* Build configuration list for PBXNativeTarget "KalaClock" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29E15AC25012143C8ACC34CE /* Debug */,
+				4AE3510C237CD244E2DAE6B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DF03F6856737D6A783E42715 /* Build configuration list for PBXNativeTarget "KalaClockTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B1A137DE2F5E0E71B017051 /* Debug */,
+				C3C1BAFF34AC91526621AB71 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E7C8C3D2BBE4B4699A45F3D0 /* Build configuration list for PBXProject "KalaClock" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				606E56E0DC7B0E3E1E718C82 /* Debug */,
+				0DA523E6D5CC2FB0A525E492 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 97A972AD92596F84EBD3D95F /* Project object */;
+}

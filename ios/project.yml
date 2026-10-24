@@ -1,0 +1,64 @@
+name: KalaClock
+options:
+  bundleIdPrefix: id.tera
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  KalaClock:
+    type: application
+    platform: iOS
+    sources:
+      - KalaClock
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: id.tera.kalaclock
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: KalaClock/Info.plist
+        TARGETED_DEVICE_FAMILY: "1,2"
+    info:
+      path: KalaClock/Info.plist
+      properties:
+        CFBundleDisplayName: KalaClock
+        UILaunchScreen:
+          UIColorName: ""
+        UIAppFonts:
+          - BarlowSemiCondensed-ExtraBold.ttf
+          - BarlowSemiCondensed-SemiBold.ttf
+        UIStatusBarHidden: true
+        UIViewControllerBasedStatusBarAppearance: false
+        UIUserInterfaceStyle: Dark
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        NSAppleMusicUsageDescription: KalaClock shows the Apple Music track that is playing on this device. Nothing leaves your device.
+  KalaClockTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - KalaClockTests
+    dependencies:
+      - target: KalaClock
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  KalaClock:
+    build:
+      targets:
+        KalaClock: all
+    test:
+      targets:
+        - KalaClockTests

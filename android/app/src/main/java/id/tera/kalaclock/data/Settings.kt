@@ -15,7 +15,7 @@ data class Settings(
     val filledCards: Boolean = true,
     val brightness: Float = 0.3f,
     val autoDim: Boolean = true,
-    val pixelShift: Boolean = true,
+    val pixelShift: Boolean = false,
     val is24h: Boolean = true,
     val showDate: Boolean = true,
     val showBattery: Boolean = true,
@@ -30,7 +30,7 @@ class SettingsRepository(private val context: Context) {
         val filled = booleanPreferencesKey("filled")
         val brightness = floatPreferencesKey("brightness")
         val autoDim = booleanPreferencesKey("auto_dim")
-        val shift = booleanPreferencesKey("pixel_shift")
+        val shift = booleanPreferencesKey("pixel_shift_v2")
         val h24 = booleanPreferencesKey("h24")
         val date = booleanPreferencesKey("date")
         val battery = booleanPreferencesKey("battery")
@@ -62,7 +62,7 @@ class SettingsRepository(private val context: Context) {
             val s = transform(
                 Settings(
                     p[K.filled] ?: true, p[K.brightness] ?: 0.3f, p[K.autoDim] ?: true,
-                    p[K.shift] ?: true, p[K.h24] ?: true, p[K.date] ?: true,
+                    p[K.shift] ?: false, p[K.h24] ?: true, p[K.date] ?: true,
                     p[K.battery] ?: true, p[K.media] ?: true,
                     p[K.focus] ?: 25, p[K.brk] ?: 5, p[K.longBrk] ?: 15,
                 )

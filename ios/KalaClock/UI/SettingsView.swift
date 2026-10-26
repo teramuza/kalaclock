@@ -35,8 +35,13 @@ struct SettingsView: View {
                 toggle("Show battery", $draft.showBattery)
                 toggle("Pixel shift", $draft.pixelShift)
                 toggle("Auto dim", $draft.autoDim)
-                Text("Brightness \(Int(draft.brightness * 100))%").foregroundColor(.white)
-                Slider(value: $draft.brightness, in: 0.05...1)
+                Text("Idle brightness: \(String(format: "%.1f", draft.brightness * 100))% (lowest on the left)")
+                    .foregroundColor(.white)
+                // Cubic scale: most of the slider is spent on the very dim levels that matter here.
+                Slider(value: Binding(
+                    get: { cbrt(draft.brightness) },
+                    set: { draft.brightness = max(0.004, $0 * $0 * $0) }
+                ), in: 0...1)
                 stepper("Focus (min)", $draft.focusMin)
                 stepper("Break (min)", $draft.breakMin)
                 stepper("Long break (min)", $draft.longBreakMin)

@@ -1,8 +1,13 @@
 package id.tera.kalaclock
 
 import android.Manifest
+import id.tera.kalaclock.media.NowPlayingState
+import id.tera.kalaclock.media.NowPlayingListener
+import android.service.notification.NotificationListenerService
+import android.content.ComponentName
 import id.tera.kalaclock.service.DeviceLock
 import id.tera.kalaclock.service.FocusMode
+import id.tera.kalaclock.service.SystemBrightness
 import id.tera.kalaclock.service.TimerController
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.PointerEventPass
@@ -51,6 +56,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.Lifecycle
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -82,6 +90,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         repo = SettingsRepository(applicationContext)
+        // Undo a brightness left dimmed by a killed process.
+        SystemBrightness.restore(this)
         // Undo a Do Not Disturb left on by a focus session whose process was killed.
         FocusMode.sync(this, TimerController.state.value, enabled = false)
         // Stay visible over the lock screen so the clock keeps showing while the phone is locked.
@@ -127,10 +137,18 @@ class MainActivity : ComponentActivity() {
             ContextCompat.RECEIVER_NOT_EXPORTED,
         )
         refreshLocked()
+        // Android does not rebind the notification listener after a force-stop or reinstall.
+        if (NowPlayingState.hasAccess(this)) {
+            runCatching {
+                NotificationListenerService.requestRebind(ComponentName(this, NowPlayingListener::class.java))
+            }
+        }
     }
 
     override fun onStop() {
         unregisterReceiver(keyguardReceiver)
+        // Give the device brightness back whenever the app leaves the screen.
+        SystemBrightness.restore(this)
         super.onStop()
     }
 
@@ -158,9 +176,18 @@ class MainActivity : ComponentActivity() {
 
         // Auto dim after 15s of no touch; touch restores full level.
         val dimmed = settings.autoDim && !chrome
-        val dim = if (dimmed) settings.brightness.coerceAtLeast(0.2f) else 1f
-        LaunchedEffect(settings.autoDim, settings.brightness, dimmed) {
-            applyBrightness(if (dimmed) settings.brightness else WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE)
+        // Dimming changes the device brightness itself, so the UI keeps its normal colors.
+        val dim = 1f
+        var resumes by remember { mutableIntStateOf(0) }
+        LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { resumes++ }
+        LaunchedEffect(settings.autoDim, settings.brightness, dimmed, resumes) {
+            if (dimmed) {
+                // Without the permission, fall back to this window's own brightness.
+                if (!SystemBrightness.dim(this@MainActivity, settings.brightness)) applyBrightness(settings.brightness)
+            } else {
+                SystemBrightness.restore(this@MainActivity)
+                applyBrightness(WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE)
+            }
         }
         // Tapping the clock toggles the bar; while it is shown it hides itself after 15s.
         LaunchedEffect(chrome, lastTouch) {

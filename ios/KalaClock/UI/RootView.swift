@@ -15,7 +15,8 @@ struct RootView: View {
 
     private var settings: Settings { store.settings }
     private var dimmed: Bool { settings.autoDim && !chrome }
-    private var dim: Double { dimmed ? max(settings.brightness, 0.2) : 1 }
+    // Dimming changes the device brightness (UIScreen) itself, so the UI keeps its normal colors.
+    private var dim: Double { 1 }
 
     var body: some View {
         ZStack {

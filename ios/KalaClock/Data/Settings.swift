@@ -2,7 +2,7 @@ import Foundation
 
 struct Settings: Equatable, Codable {
     var filledCards = true
-    var brightness: Double = 0.3
+    var brightness: Double = 0.01 // idle device brightness, about the lowest the screen goes
     var autoDim = true
     var pixelShift = false
     var is24h = true

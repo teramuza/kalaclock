@@ -38,6 +38,7 @@ import id.tera.kalaclock.AppInfoConfig
 import id.tera.kalaclock.media.NowPlayingState
 import id.tera.kalaclock.service.DeviceLock
 import id.tera.kalaclock.service.FocusMode
+import id.tera.kalaclock.service.SystemBrightness
 
 @Composable
 fun SettingsScreen(saved: Settings, onSave: (Settings) -> Unit, onClose: () -> Unit) {
@@ -71,9 +72,18 @@ fun SettingsScreen(saved: Settings, onSave: (Settings) -> Unit, onClose: () -> U
         Toggle("Show date", settings.showDate) { v -> onChange { it.copy(showDate = v) } }
         Toggle("Show battery", settings.showBattery) { v -> onChange { it.copy(showBattery = v) } }
         Toggle("Pixel shift", settings.pixelShift) { v -> onChange { it.copy(pixelShift = v) } }
-        Toggle("Auto dim", settings.autoDim) { v -> onChange { it.copy(autoDim = v) } }
-        Text("Brightness ${(settings.brightness * 100).toInt()}%", color = Color.White)
-        Slider(settings.brightness, { v -> onChange { it.copy(brightness = v.coerceIn(0.05f, 1f)) } }, valueRange = 0.05f..1f)
+        Toggle("Auto dim (changes the device brightness)", settings.autoDim) { v -> onChange { it.copy(autoDim = v) } }
+        if (settings.autoDim && !SystemBrightness.canWrite(ctx)) {
+            Text("Dimming the device needs permission to modify system settings. Without it only this app's window is dimmed.", color = Color.LightGray)
+            Button({ ctx.startActivity(SystemBrightness.permissionIntent(ctx)) }) { Text("Grant brightness permission") }
+        }
+        Text("Idle brightness: ${"%.1f".format(settings.brightness * 100)}% (lowest on the left)", color = Color.White)
+        // Cubic scale: most of the slider is spent on the very dim levels that matter here.
+        Slider(
+            Math.cbrt(settings.brightness.toDouble()).toFloat(),
+            { v -> onChange { it.copy(brightness = (v * v * v).coerceIn(0.004f, 1f)) } },
+            valueRange = 0f..1f,
+        )
         Stepper("Focus (min)", settings.focusMin) { v -> onChange { it.copy(focusMin = v) } }
         Stepper("Break (min)", settings.breakMin) { v -> onChange { it.copy(breakMin = v) } }
         Stepper("Long break (min)", settings.longBreakMin) { v -> onChange { it.copy(longBreakMin = v) } }

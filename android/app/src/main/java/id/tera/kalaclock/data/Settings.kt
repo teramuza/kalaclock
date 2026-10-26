@@ -13,7 +13,8 @@ private val Context.dataStore by preferencesDataStore(name = "settings")
 
 data class Settings(
     val filledCards: Boolean = true,
-    val brightness: Float = 0.3f,
+    /** Device brightness while idle, 0..1. The default is about the lowest the screen goes, like an always-on display. */
+    val brightness: Float = 0.005f,
     val autoDim: Boolean = true,
     val pixelShift: Boolean = false,
     val is24h: Boolean = true,
@@ -31,7 +32,7 @@ data class Settings(
 class SettingsRepository(private val context: Context) {
     private object K {
         val filled = booleanPreferencesKey("filled")
-        val brightness = floatPreferencesKey("brightness")
+        val brightness = floatPreferencesKey("idle_brightness")
         val autoDim = booleanPreferencesKey("auto_dim")
         val shift = booleanPreferencesKey("pixel_shift_v2")
         val h24 = booleanPreferencesKey("h24")
@@ -70,7 +71,7 @@ class SettingsRepository(private val context: Context) {
         context.dataStore.edit { p ->
             val s = transform(
                 Settings(
-                    p[K.filled] ?: true, p[K.brightness] ?: 0.3f, p[K.autoDim] ?: true,
+                    p[K.filled] ?: true, p[K.brightness] ?: 0.005f, p[K.autoDim] ?: true,
                     p[K.shift] ?: false, p[K.h24] ?: true, p[K.date] ?: true,
                     p[K.battery] ?: true, p[K.media] ?: true,
                     p[K.focus] ?: 25, p[K.brk] ?: 5, p[K.longBrk] ?: 15,

@@ -5,6 +5,7 @@ struct TimerScreen: View {
     let settings: Settings
     let dim: Double
     @ObservedObject var timer: TimerController
+    @ObservedObject var nowPlaying: NowPlayingMonitor
     @State private var countdownMin: Int64 = 10
     @State private var now = monotonicNowMs()
     private let frame = Timer.publish(every: 0.2, on: .main, in: .common).autoconnect()
@@ -15,23 +16,44 @@ struct TimerScreen: View {
 
     var body: some View {
         GeometryReader { geo in
+            let pomodoro = mode == .pomodoro
             Group {
                 if geo.size.width > geo.size.height {
                     // Landscape: controls in a left column so the cards keep the full height.
-                    HStack(spacing: 0) {
-                        VStack(spacing: 16) {
-                            phaseLabel
-                            adjusters(vertical: true)
-                            buttons(vertical: true)
+                    ZStack {
+                        HStack(spacing: 0) {
+                            VStack(spacing: 16) {
+                                phaseLabel
+                                adjusters(vertical: true)
+                                buttons(vertical: true)
+                            }
+                            .frame(width: 132).padding(.leading, 16)
+                            FlipGroups(groups: groups, filled: settings.filledCards, color: digitGray, dim: dim)
                         }
-                        .frame(width: 132).padding(.leading, 16)
-                        FlipGroups(groups: groups, filled: settings.filledCards, color: digitGray, dim: dim)
+                        // Pomodoro also shows the time and what is playing, in the corners.
+                        if pomodoro {
+                            currentTime
+                                .padding(.horizontal, 32).padding(.vertical, 16)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                            if settings.showMedia {
+                                NowPlayingBar(monitor: nowPlaying, fg: fg, compact: true)
+                                    .padding(.trailing, 32).padding(.bottom, 24)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                            }
+                        }
                     }
                 } else {
                     VStack(spacing: 0) {
+                        if pomodoro {
+                            HStack { Spacer(); currentTime }.padding(.horizontal, 24).padding(.vertical, 8)
+                        }
                         phaseLabel
                         adjusters(vertical: false)
                         FlipGroups(groups: groups, filled: settings.filledCards, color: digitGray, dim: dim)
+                        if pomodoro && settings.showMedia {
+                            HStack { NowPlayingBar(monitor: nowPlaying, fg: fg, compact: true); Spacer() }
+                                .padding(.horizontal, 24).padding(.bottom, 8)
+                        }
                         buttons(vertical: false).padding(16)
                     }
                 }
@@ -67,6 +89,20 @@ struct TimerScreen: View {
         let h = total / 3600
         let f = { (v: Int) in FlipGroup(text: String(format: "%02d", v)) }
         return h > 0 ? [f(h), f((total % 3600) / 60), f(total % 60)] : [f(total / 60), f(total % 60)]
+    }
+
+    /// Current local time, shown on the Pomodoro screen.
+    private var currentTime: some View {
+        TimelineView(.everyMinute) { timeline in
+            Text(Self.timeText(timeline.date, is24h: settings.is24h))
+                .font(.system(size: 22)).foregroundColor(fg)
+        }
+    }
+
+    private static func timeText(_ date: Date, is24h: Bool) -> String {
+        let f = DateFormatter()
+        f.dateFormat = is24h ? "HH:mm" : "h:mm a"
+        return f.string(from: date)
     }
 
     @ViewBuilder private var phaseLabel: some View {

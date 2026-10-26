@@ -62,7 +62,7 @@ struct RootView: View {
                 if mode == .clock {
                     ClockScreen(settings: settings, dim: dim, nowPlaying: nowPlaying)
                 } else {
-                    TimerScreen(mode: mode, settings: settings, dim: dim, timer: timer)
+                    TimerScreen(mode: mode, settings: settings, dim: dim, timer: timer, nowPlaying: nowPlaying)
                 }
             }
             // Space is only taken while the bar is visible; once it hides, the clock re-centers.

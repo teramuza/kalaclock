@@ -186,7 +186,7 @@ private fun parseBattery(i: Intent?): BatteryInfo {
 }
 
 @Composable
-private fun NowPlayingBar(fg: Color, compact: Boolean = false, scale: Float = 1f, startAligned: Boolean = compact) {
+internal fun NowPlayingBar(fg: Color, compact: Boolean = false, scale: Float = 1f, startAligned: Boolean = compact) {
     val np by NowPlayingState.value.collectAsState()
     val n = np ?: return
     Row(
@@ -231,4 +231,20 @@ private fun NowPlayingBar(fg: Color, compact: Boolean = false, scale: Float = 1f
             if (n.artist.isNotBlank()) Text(n.artist, color = fg.copy(alpha = fg.alpha * 0.7f), fontSize = ((if (compact) 11f else 14f) * scale).sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
     }
+}
+
+/** Current local time, shown on screens whose main digits are something else (the Pomodoro timer). */
+@Composable
+internal fun CurrentTimeLabel(is24h: Boolean, fg: Color, modifier: Modifier = Modifier) {
+    var now by remember { mutableStateOf(LocalDateTime.now()) }
+    var resumes by remember { mutableIntStateOf(0) }
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { resumes++ }
+    LaunchedEffect(resumes) {
+        while (true) {
+            now = LocalDateTime.now()
+            delay(60_000L - System.currentTimeMillis() % 60_000L)
+        }
+    }
+    val pattern = if (is24h) "HH:mm" else "h:mm a"
+    Text(now.format(DateTimeFormatter.ofPattern(pattern, Locale.getDefault())), color = fg, fontSize = 22.sp)
 }

@@ -3,6 +3,9 @@ package id.tera.kalaclock.ui.timer
 import android.os.SystemClock
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import id.tera.kalaclock.ui.clock.NowPlayingBar
+import id.tera.kalaclock.ui.clock.CurrentTimeLabel
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -125,27 +128,50 @@ fun TimerScreen(mode: Mode, settings: Settings, dim: Float, modifier: Modifier =
         else Row(Modifier.padding(16.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) { items() }
     }
 
+    val pomodoro = mode == Mode.POMODORO
+
     BoxWithConstraints(modifier.fillMaxSize()) {
         if (maxWidth > maxHeight) {
             // Landscape: controls in a left column so the cards keep the full height.
-            Row(Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
-                Column(
-                    Modifier.width(132.dp).fillMaxHeight().padding(start = 16.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    phaseLabel()
-                    adjusters(true)
-                    buttons(true)
+            Box(Modifier.fillMaxSize()) {
+                Row(Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically) {
+                    Column(
+                        Modifier.width(132.dp).fillMaxHeight().padding(start = 16.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        phaseLabel()
+                        adjusters(true)
+                        buttons(true)
+                    }
+                    FlipGroups(groups, settings.filledCards, DigitGray, Modifier.weight(1f).fillMaxHeight(), dim)
                 }
-                FlipGroups(groups, settings.filledCards, DigitGray, Modifier.weight(1f).fillMaxHeight(), dim)
+                // Pomodoro also shows the time and what is playing, in the corners.
+                if (pomodoro) {
+                    CurrentTimeLabel(settings.is24h, fg, Modifier.align(Alignment.TopEnd).padding(horizontal = 32.dp, vertical = 16.dp))
+                    if (settings.showMedia) {
+                        Box(Modifier.align(Alignment.BottomEnd).padding(end = 32.dp, bottom = 24.dp).widthIn(max = 170.dp)) {
+                            NowPlayingBar(fg, compact = true)
+                        }
+                    }
+                }
             }
         } else {
             Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+                if (pomodoro) {
+                    Row(Modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 8.dp), horizontalArrangement = Arrangement.End) {
+                        CurrentTimeLabel(settings.is24h, fg)
+                    }
+                }
                 phaseLabel()
                 adjusters(false)
                 Box(Modifier.weight(1f).fillMaxWidth()) {
                     FlipGroups(groups, settings.filledCards, DigitGray, Modifier.fillMaxSize(), dim)
+                }
+                if (pomodoro && settings.showMedia) {
+                    Box(Modifier.fillMaxWidth().padding(start = 24.dp, end = 24.dp, bottom = 8.dp)) {
+                        NowPlayingBar(fg, scale = 0.9f, startAligned = true)
+                    }
                 }
                 buttons(false)
             }

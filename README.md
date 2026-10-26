@@ -11,7 +11,8 @@ Two big split-flap cards show the hour and the minute, with the date, weekday an
 - **Flip clock**: animated flip cards, 12/24h, AM/PM, date, weekday, battery indicator.
 - **Stopwatch, countdown and Pomodoro**: focus 25 / break 5 / long break 15 after 4 sessions, all configurable. Time is derived from monotonic timestamps, not tick counting, so it does not drift. On Android, Do Not Disturb turns on during a Pomodoro focus phase and goes back to its previous setting afterwards.
 - **Portrait and landscape**: cards stack in portrait and sit side by side in landscape. The orientation follows the sensor even when the system rotation lock is on.
-- **OLED friendly**: pure `#000000` background, optional card-less mode (digits only), auto dim after 15 seconds without touch, and an optional pixel shift that is off by default.
+- **OLED friendly**: pure `#000000` background, optional card-less mode (digits only), idle dimming after 15 seconds without touch (it lowers the device brightness itself, to a level close to an always-on display), and an optional pixel shift that is off by default.
+- **Pomodoro extras**: the Pomodoro screen also shows the current time and now playing.
 - **Now playing**: artist, title and artwork (grayscale and dimmed), when the platform allows it.
 - **Settings**: card style, brightness, 24h, date, battery, now playing, Pomodoro durations. Changes are saved explicitly, and closing with unsaved changes asks whether to save.
 - Fullscreen, keeps the screen on, and the mode bar hides itself so the clock re-centers.
@@ -77,6 +78,7 @@ Android permissions and why they exist:
 
 - `POST_NOTIFICATIONS`, `FOREGROUND_SERVICE`, `USE_EXACT_ALARM`, `WAKE_LOCK`: the timer notification and the finish alarm.
 - Notification access (granted by the user in Settings): now playing and the message/email icons. Only the media title, artist and artwork, plus the package name and category of notifications, are read. Notification text is never read.
+- Modify system settings (`WRITE_SETTINGS`, granted by the user, optional): lowering the device brightness to an always-on-display-like level when the clock is idle. Only the brightness value and mode are written, and the previous values are restored when the app leaves the screen or you touch it. Without it, only the app's own window is dimmed.
 - Do Not Disturb access (granted by the user): switching Do Not Disturb on during Pomodoro focus and restoring the previous mode afterwards. Alarms and the finish alert still come through.
 - Device admin with the `force-lock` policy only (granted by the user): locking the phone after idle. It cannot wipe data or change passwords.
 
